@@ -1,0 +1,19 @@
+{
+  "name": "dcbot7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "run": "node src/index.js"
+  },
+  "author": "Izan Rodrigues",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
