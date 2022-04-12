@@ -6,9 +6,12 @@ module.exports = class extends Event {
             name: "interactionCreate"
         })
     }
-    run = (interaction) => {
+    run = async (interaction) => {
         if (!interaction.isCommand || interaction.user.bot) return
         const cmd = this.client.slashCommands.find(c => c.name === interaction.commandName)
-        if (cmd) cmd.run(interaction)
+        if (cmd) {
+            await interaction.deferReply()
+            cmd.run(interaction)
+        }
     }
 }
