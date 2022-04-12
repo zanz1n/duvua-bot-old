@@ -10,9 +10,11 @@
   "author": "Izan Rodrigues",
   "license": "Apache-2.0",
   "dependencies": {
+    "@discordjs/opus": "^0.5.3",
     "discord-player": "^5.2.2",
     "discord.js": "^13.6.0",
-    "dotenv": "^16.0.0"
+    "dotenv": "^16.0.0",
+    "ffmpeg-static": "^4.4.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
