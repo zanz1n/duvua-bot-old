@@ -4,7 +4,8 @@ const { Client, MessageEmbed, Intents } = require('discord.js')
 const fs = require('fs')
 const { join } = require('path')
 require('dotenv').config()
-
+const { Player } = require('discord-player')
+const { Permissions } = require('discord.js')
 class ClienT extends Client {
     constructor(options) {
         super(options)
@@ -12,6 +13,7 @@ class ClienT extends Client {
         this.slashCommands = []
         this.loadSlashCommands()
         this.loadEvents()
+        this.loadPlayer()
     }
     loadSlashCommands(path = 'src/slashcommands') {
         const categories = fs.readdirSync(path)
@@ -26,6 +28,7 @@ class ClienT extends Client {
                 console.log(`\x1b[35m[bot-commands] slashCommand ${scmd.name} loaded\x1b[0m`)
             }
         }
+        console.log(`\x1b[34m[bot-api] All slashCommands loaded\x1b[0m`)
     }
     loadEvents(path = 'src/events') {
         const categories = fs.readdirSync(path)
@@ -45,6 +48,14 @@ class ClienT extends Client {
         this.guilds.cache.get('951236777560129627').commands.set(this.slashCommands) //for Dev
         // this.application.commands.set(this.commands) //for Production environment
     }
+    loadPlayer() {
+        this.player = new Player(this, {
+            ytdlOptions: {
+                quality: "highestaudio",
+                highWaterMark: 1 << 25
+            }
+        })
+    }
 }
 
 const client = new ClienT({
@@ -58,25 +69,43 @@ const client = new ClienT({
 })
 
 const CMDfiles = fs.readdirSync('src/commands/').filter(file => file.endsWith('.js'))
+/*
+const path = 'src/commands'
+
+const categories = fs.readdirSync(path)
+for (const category in categories) {
+    const commands = fs.readdirSync(`${path}/${category}`)
+
+    for (const command in commands) {
+        const cmd = require(`${path}/${category}/${command}`)
+        client.commands.set(cmd.name, cmd)
+
+        console.log(`\x1b[35m[bot-commands] command ${cmd.name} loaded\x1b[0m`)
+    }
+}*/
 
 for (const file of CMDfiles) {
+
     const command = require(`../src/commands/${file}`)
 
     client.commands.set(command.name, command)
+
+    console.log(`\x1b[35m[bot-commands] command ${command.name} loaded\x1b[0m`)
 }
 
-const prefix = "k!"
+const prefix = "-"
 
 client.on("messageCreate", async (message) => {
     if (message.author.bot || !message.content.startsWith(prefix)) return
-    const [msgcommand, ...args] = message.content.trim().substring(prefix.length).split(/\s+/)
+    const [msgcommand, agors] = message.content.trim().substring(prefix.length).split(/\s+/)
+    const args = message.content.replace(prefix + msgcommand, "")
     let cmds = []
 
     function load(number, name) {
         cmds.push(name)
-        if (msgcommand === client.commands.get(cmds[number]).name) client.commands.get(cmds[number]).execute(message, args)
+        if (msgcommand === client.commands.get(cmds[number]).name) client.commands.get(cmds[number]).execute(client, message, args)
     }
-    load(0, 'ping'); load(1, 'say');
+    load(0, 'ping'); load(1, 'say'); load(2, 'embed'); load(3, 'play'); load(4, 'skip'); load(5, 'stop'); load(6, 'queue'); load(7, 'song');
 })
 
 module.exports = ClienT
