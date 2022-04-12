@@ -6,6 +6,7 @@ const { join } = require('path')
 require('dotenv').config()
 const { Player } = require('discord-player')
 const { Permissions } = require('discord.js')
+
 class ClienT extends Client {
     constructor(options) {
         super(options)
