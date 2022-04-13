@@ -23,12 +23,12 @@ module.exports = class extends slashCommand {
             return embed.setDescription(`**Você não tem permissão para usar esse comando!,  ${interaction.user.username}**`),
                 await interaction.editReply({ embeds: [embed] })
         }
-        if (interaction.options.getString('content') === "" || undefined || " ") {
+        if (interaction.options.getString('content') === "" || undefined) {
             return embed.setDescription("Você precisa inserir algo na embed"),
-            interaction.editReply({embeds: [embed]})
+                interaction.editReply({ embeds: [embed] })
         }
         embed.setTitle(interaction.options.getString('content'))
-        .setFooter({text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.author.displayAvatarURL()})
-        await interaction.editReply({ content: `${interaction.options.getString('content')}\n-${interaction.user}` })
+            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
+        await interaction.editReply({ embeds: [embed] })
     }
 }
