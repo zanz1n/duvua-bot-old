@@ -6,8 +6,9 @@ module.exports = {
     name: "play",
     description: "Toca uma música do youtube",
     async execute(client, message, args) {
+        const msg = await message.channel.send({ content: `\`Carregando [${message.content.replace(client.prefix + "play", "")} ]\`` })
         if (!message.member.voice.channel) {
-            return message.reply("```diff\n-Você prefisa estart em um VC para tocar uma música\n```")
+            return msg.edit({ content: "```diff\n-Você prefisa estart em um VC para tocar uma música\n```" })
         }
         const queue = await client.player.createQueue(message.guild)
         if (!queue.connection) await queue.connect(message.member.voice.channel)
@@ -16,7 +17,7 @@ module.exports = {
 
         if (args.length > 75) { //args
             return embed.setDescription("**Acalme-se, texto é muito grande para mim**"),
-                message.reply({ embeds: [embed] })
+                msg.edit({ content: " ", embeds: [embed] })
         }
 
         let url = args //args[0]
@@ -33,7 +34,7 @@ module.exports = {
 
             if (result.tracks.length == 0) {
                 return embed.setDescription(`**Nenhum som:** *${args}* **encontrado**`),
-                    message.reply({ embeds: [embed] })
+                    msg.edit({ content: " ", embeds: [embed] })
             }
         }
 
@@ -45,6 +46,6 @@ module.exports = {
 
         if (!queue.playing) await queue.play()
 
-        await message.channel.send({ embeds: [embed] })
+        await msg.edit({ content: " ", embeds: [embed] })
     }
 }
