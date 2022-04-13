@@ -12,11 +12,11 @@ module.exports = {
 
         if (!queue) {
             return embed.setDescription(`**Não há nenhum som na fila,  ${message.author.username}**`),
-                await message.reply({ embeds: [embed] })
+                await message.channel.send({ embeds: [embed] })
         }
         queue.skip()
 
         embed.setDescription(`**Música** ${queue.current.title} **pulada por ${message.author.username}**`)
-        await message.reply({ embeds: [embed] })
+        await message.channel.send({ embeds: [embed] })
     }
 }
