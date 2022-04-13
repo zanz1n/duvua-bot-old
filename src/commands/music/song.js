@@ -6,13 +6,14 @@ module.exports = {
     name: "song",
     description: "Mostra informações do som que está tocando.",
     async execute(client, message, args) {
+        const msg = await message.channel.send("`Pensando [...]`")
         const queue = client.player.getQueue(message.guildId)
 
         let embed = new MessageEmbed()
 
         if (!queue) {
             return embed.setDescription(`**Não há nenhum som na fila,  ${message.author.username}**`),
-                await message.reply({ embeds: [embed] })
+                await msg.edit({ content: " ", embeds: [embed] })
         }
 
         let bar = queue.createProgressBar({
@@ -25,6 +26,6 @@ module.exports = {
         embed.setThumbnail(song.thumbnail)
             .setDescription(`**${message.author.username}**\n\nTocando agora: [${song.title}](${song.url})\n\n**Duração: [${song.duration}]**\n\n ${bar}`)
 
-        await message.reply({ embeds: [embed] })
+        await msg.edit({ content: " ", embeds: [embed] })
     }
 }
