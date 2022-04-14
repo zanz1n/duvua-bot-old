@@ -73,25 +73,10 @@ const client = new ClienT({
 
 const CMDfiles = fs.readdirSync('src/commands/').filter(file => file.endsWith('.js'))
 const CMDfiles2 = fs.readdirSync('src/commands/music').filter(file => file.endsWith('.js'))
-/*
-const path = 'src/commands'
-
-const categories = fs.readdirSync(path)
-for (const category in categories) {
-    const commands = fs.readdirSync(`${path}/${category}`)
-
-    for (const command in commands) {
-        const cmd = require(`${path}/${category}/${command}`)
-        client.commands.set(cmd.name, cmd)
-
-        console.log(`\x1b[35m[bot-commands] command ${cmd.name} loaded\x1b[0m`)
-    }
-}*/
 
 for (const file of CMDfiles) {
 
     const command = require(`../src/commands/${file}`)
-
     client.commands.set(command.name, command)
 
     console.log(`\x1b[35m[bot-commands] command ${command.name} loaded\x1b[0m`)
@@ -99,7 +84,6 @@ for (const file of CMDfiles) {
 for (const file of CMDfiles2) {
 
     const command = require(`../src/commands/music/${file}`)
-
     client.commands.set(command.name, command)
 
     console.log(`\x1b[35m[bot-commands] command ${command.name} loaded\x1b[0m`)
@@ -115,8 +99,8 @@ client.on("messageCreate", async (message) => {
         cmds.push(name)
         if (msgcommand === client.commands.get(cmds[number]).name) client.commands.get(cmds[number]).execute(client, message, args)
     }
-    load(0, 'ping'); load(1, 'say'); load(2, 'embed'); load(3, 'play'); load(4, 'skip'); load(5, 'stop'); load(6, 'queue'); load(7, 'song');
-    load(8, 'memory');
+    load(0, 'ping'); load(1, 'say'); load(2, 'embed'); load(3, 'play'); load(4, 'skip'); load(5, 'stop'); load(6, 'queue');
+    load(7, 'song'); load(8, 'memory');
 })
 
 module.exports = ClienT
