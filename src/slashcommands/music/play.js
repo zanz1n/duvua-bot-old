@@ -27,7 +27,7 @@ module.exports = class extends slashCommand {
         let embed = new MessageEmbed()
 
         if (interaction.options.getString("song").length > 75) {
-            return embed.setDescription("**Acalme-se, texto é muito grande para mim**"),
+            return embed.setDescription("**Acalme-se, esse texto é muito grande!**"),
                 interaction.editReply({ embeds: [embed] })
         }
 
@@ -53,7 +53,8 @@ module.exports = class extends slashCommand {
         await queue.addTrack(song)
 
         embed.setDescription(`**[${song.title}](${song.url})** foi adicionada a playlist\n\n**Duração: [${song.duration}]**`)
-            .setThumbnail(song.thumbnail).setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
+            .setThumbnail(song.thumbnail)
+            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
 
         if (!queue.playing) await queue.play()
 
