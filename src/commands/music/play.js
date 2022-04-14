@@ -16,7 +16,7 @@ module.exports = {
         let embed = new MessageEmbed()
 
         if (args.length > 75) { //args
-            return embed.setDescription("**Acalme-se, texto é muito grande para mim**"),
+            return embed.setDescription("**Acalme-se, esse texto é muito grande!**"),
                 msg.edit({ content: " ", embeds: [embed] })
         }
 
@@ -42,7 +42,8 @@ module.exports = {
         await queue.addTrack(song)
 
         embed.setDescription(`**[${song.title}](${song.url})** foi adicionada a playlist\n\n**Duração: [${song.duration}]**`)
-            .setThumbnail(song.thumbnail).setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: await message.author.displayAvatarURL() })
+            .setThumbnail(song.thumbnail)
+            .setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: await message.author.displayAvatarURL() })
 
         if (!queue.playing) await queue.play()
 
