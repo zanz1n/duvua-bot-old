@@ -13,7 +13,7 @@ module.exports = {
 
         embed.setAuthor("Avatar de " + user.username, user.displayAvatarURL()).setImage(image)
             .setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: message.author.displayAvatarURL() })
-            .setTimestamp().setDescription(`[__**Ver Original**__](${user.displayAvatarURL({ format: 'png' })})`)
+            .setTimestamp().setDescription(`[__**Ver Original**__](${user.displayAvatarURL({ format: 'png' })})`).setTimestamp()
         await message.channel.send({ embeds: [embed] })
     }
 }
