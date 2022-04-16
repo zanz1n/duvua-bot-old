@@ -54,7 +54,7 @@ module.exports = class extends slashCommand {
 
         embed.setDescription(`**[${song.title}](${song.url})** foi adicionada a playlist\n\n**Duração: [${song.duration}]**`)
             .setThumbnail(song.thumbnail)
-            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
+            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
 
         if (!queue.playing) await queue.play()
 
