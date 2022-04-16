@@ -22,16 +22,9 @@ module.exports = class extends slashCommand {
         const options = interaction.options._hoistedOptions
         const user = options.find((e) => e.name === "user") && options.find((e) => e.name === "user").member.user
         const random = (min, max) => Math.floor(Math.random() * (max - min) + min)
-        const links = [
-            "https://c.tenor.com/C96g4M5OPsYAAAAC/anime-couple.gif",
-            "https://c.tenor.com/ESx85qu8V5QAAAAC/two.gif",
-            "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif",
-            "https://c.tenor.com/s1VvsszCbCAAAAAC/love-you.gif",
-            "https://c.tenor.com/hK8IUmweJWAAAAAC/kiss-me-%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E.gif",
-            "https://c.tenor.com/JwNMk8ggpi8AAAAd/anime-anime-kiss.gif",
-            "https://c.tenor.com/kyM-QWHWy1cAAAAC/anime-kissing.gif",
-            "https://acegif.com/wp-content/uploads/anime-kiss-6.gif"
-        ]
+
+        const links = require('../../gifs/gifs').gifs_a
+
         if (user === this.client.user) {
             embed.setDescription(`**Vamos manter nossa relação como uma amizade, ok ${interaction.user}?**`)
             return interaction.editReply({ content: " ", embeds: [embed] })
@@ -39,11 +32,12 @@ module.exports = class extends slashCommand {
         /*else if (user.bot) {
             embed.setDescription(`**Você não pode beijar um bot ${interaction.user}!**`)
             return interaction.editReply({ content: " ", embeds: [embed] })
-        }*/
-        /*else if (user === interaction.user) {
-            embed.setDescription(`**Amor próprio é bom ${interaction.user}, vamos nos amar!**`)
+        }*/ //do not permit kissing bots
+        else if (user === interaction.user) {
+            embed.setTitle(`O amor está no ar!  \:heart:`).setDescription(`${interaction.user} beijou ${user}`)
+                .setImage(links[random(0, links.length)])
             return interaction.editReply({ content: " ", embeds: [embed] })
-        }*/
+        }
         else {
             embed.setTitle(`O amor está no ar!  \:heart:`).setDescription(`${interaction.user} beijou ${user}`)
                 .setImage(links[random(0, links.length)]).setFooter("🔁 para retribuir  |  ❌ para negar")
@@ -67,12 +61,7 @@ module.exports = class extends slashCommand {
                     await i.reply({ embeds: [embedRetribuir] })
                 }
                 else if (i.customId === '2') {
-                    const slap = [
-                        "https://i.pinimg.com/originals/2f/0f/82/2f0f82e4fb0dee8efd75bee975496eab.gif",
-                        "https://www.intoxianime.com/wp-content/uploads/2017/04/tumblr_ooub8fIHkT1qz64n4o2_400.gif,",
-                        "https://i.pinimg.com/originals/65/57/f6/6557f684d6ffcd3cd4558f695c6d8956.gif",
-                        "https://c.tenor.com/T6PzZiyIV6AAAAAC/tapa-anime-bosta-tapa.gif"
-                    ]
+                    const slap = require('../../gifs/gifs').gifs_b
                     const embedRetribuir = new MessageEmbed().setTitle(`Quem nunca levou um fora, né ${interaction.user.username}`)
                         .setDescription(`${i.user} negou o beijo de ${interaction.user}  \:broken_heart:`)
                         .setImage(slap[random(0, slap.length)])
@@ -83,3 +72,17 @@ module.exports = class extends slashCommand {
         }
     }
 }
+
+/*
+ *
+ *
+ *          "https://c.tenor.com/ESx85qu8V5QAAAAC/two.gif",
+ *          "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif",
+ *          "https://c.tenor.com/s1VvsszCbCAAAAAC/love-you.gif",
+ *          "https://c.tenor.com/hK8IUmweJWAAAAAC/kiss-me-%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E.gif",
+ *          "https://c.tenor.com/JwNMk8ggpi8AAAAd/anime-anime-kiss.gif",
+ *          "https://c.tenor.com/kyM-QWHWy1cAAAAC/anime-kissing.gif",
+ *          "https://acegif.com/wp-content/uploads/anime-kiss-6.gif"
+ *
+ * 
+ */
