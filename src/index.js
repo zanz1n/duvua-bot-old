@@ -97,10 +97,10 @@ client.on("messageCreate", async (message) => {
 
     function load(number, name) {
         cmds.push(name)
-        if (msgcommand === client.commands.get(cmds[number]).name) client.commands.get(cmds[number]).execute(client, message, args)
+        if (msgcommand.toLowerCase() === client.commands.get(cmds[number]).name) client.commands.get(cmds[number]).execute(client, message, args) //commands is now .toLowerCase()
     }
     load(0, 'ping'); load(1, 'say'); load(2, 'embed'); load(3, 'play'); load(4, 'skip'); load(5, 'stop'); load(6, 'queue');
-    load(7, 'song'); load(8, 'memory');
+    load(7, 'song'); load(8, 'memory'); load(9, 'avatar');
 })
 
 module.exports = ClienT
