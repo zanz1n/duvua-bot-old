@@ -3,8 +3,8 @@ const { QueryType } = require('discord-player')
 const { Permissions } = require('discord.js')
 
 module.exports = {
-    name: "song",
-    description: "Mostra informações do som que está tocando.",
+    name: "songinfo",
+    description: "Mostra o som que está tocando",
     async execute(client, message, args) {
         const msg = await message.channel.send("`Pensando [...]`")
         const queue = client.player.getQueue(message.guildId)
