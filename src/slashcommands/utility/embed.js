@@ -28,7 +28,7 @@ module.exports = class extends slashCommand {
                 interaction.editReply({ embeds: [embed] })
         }
         embed.setTitle(interaction.options.getString('content'))
-            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
+            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
         await interaction.editReply({ embeds: [embed] })
     }
 }
