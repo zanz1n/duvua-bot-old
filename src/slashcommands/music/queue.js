@@ -24,7 +24,7 @@ module.exports = class extends slashCommand {
             (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : None) +
             `\n\n**Lista**\n${queueString}`
         )
-            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
+            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
             .setThumbnail(currentSong.thumbnail)
 
         interaction.editReply({ embeds: [embed] })
