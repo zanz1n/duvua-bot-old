@@ -43,7 +43,7 @@ module.exports = {
 
         embed.setDescription(`**[${song.title}](${song.url})** foi adicionada a playlist\n\n**Duração: [${song.duration}]**`)
             .setThumbnail(song.thumbnail)
-            .setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: await message.author.displayAvatarURL() })
+            .setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: await message.author.displayAvatarURL() }).setTimestamp()
 
         if (!queue.playing) await queue.play()
 
