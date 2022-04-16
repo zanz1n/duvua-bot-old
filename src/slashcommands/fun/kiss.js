@@ -33,6 +33,7 @@ module.exports = class extends slashCommand {
             embed.setDescription(`**Você não pode beijar um bot ${interaction.user}!**`)
             return interaction.editReply({ content: " ", embeds: [embed] })
         }*/ //do not permit kissing bots
+
         else if (user === interaction.user) {
             embed.setTitle(`O amor está no ar!  \:heart:`).setDescription(`${interaction.user} beijou ${user}`)
                 .setImage(links[random(0, links.length)])
@@ -41,6 +42,7 @@ module.exports = class extends slashCommand {
         else {
             embed.setTitle(`O amor está no ar!  \:heart:`).setDescription(`${interaction.user} beijou ${user}`)
                 .setImage(links[random(0, links.length)]).setFooter("🔁 para retribuir  |  ❌ para negar")
+                .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
             const button = new MessageActionRow().addComponents(
                 new MessageButton().setCustomId('1').setLabel('🔁').setStyle('PRIMARY').setDisabled(false),
                 new MessageButton().setCustomId('2').setLabel('❌').setStyle('PRIMARY').setDisabled(false)
@@ -72,17 +74,3 @@ module.exports = class extends slashCommand {
         }
     }
 }
-
-/*
- *
- *
- *          "https://c.tenor.com/ESx85qu8V5QAAAAC/two.gif",
- *          "https://c.tenor.com/vhuon7swiOYAAAAC/rakudai-kishi-kiss.gif",
- *          "https://c.tenor.com/s1VvsszCbCAAAAAC/love-you.gif",
- *          "https://c.tenor.com/hK8IUmweJWAAAAAC/kiss-me-%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E.gif",
- *          "https://c.tenor.com/JwNMk8ggpi8AAAAd/anime-anime-kiss.gif",
- *          "https://c.tenor.com/kyM-QWHWy1cAAAAC/anime-kissing.gif",
- *          "https://acegif.com/wp-content/uploads/anime-kiss-6.gif"
- *
- * 
- */
