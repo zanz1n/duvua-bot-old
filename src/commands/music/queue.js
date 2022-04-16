@@ -22,7 +22,7 @@ module.exports = {
             `\n\n**Lista**\n${queueString}`
         )
             .setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: message.author.displayAvatarURL() })
-            .setThumbnail(currentSong.thumbnail)
+            .setThumbnail(currentSong.thumbnail).setTimestamp()
 
         msg.edit({ content: " ", embeds: [embed] })
     }
