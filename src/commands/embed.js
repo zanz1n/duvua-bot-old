@@ -6,6 +6,6 @@ module.exports = {
     async execute(client, message, args) {
         if (args === undefined) return message.reply(`Você precisa inserir uma mensagem ${message.author}`)
         const embed = new MessageEmbed().setTitle(args).setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: message.author.displayAvatarURL() })
-        await message.channel.send({ embeds: [embed] })
+        await message.channel.send({ embeds: [embed] }).setTimestamp()
     }
 }
