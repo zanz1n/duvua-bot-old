@@ -8,4 +8,5 @@
 <h1> duvua-bot </h1>
 <p>Duvua é um bot para discord que consegue fazer tudo o queo o seu server precisa, e suporta comandos simples com o prefixo - e commandos com /.</p>
 <p>Você pode adicionar no seu server em: </p>
+<h2>Licensa</h2>
 <p><strong>Você pode baixar o código e moduficá-lo, mas não pode ser usado para fins comerciais.</strong></p>
