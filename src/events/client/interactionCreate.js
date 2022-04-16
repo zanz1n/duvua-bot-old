@@ -8,10 +8,18 @@ module.exports = class extends Event {
     }
     run = async (interaction) => {
         if (!interaction.isCommand || interaction.user.bot) return
-        const cmd = this.client.slashCommands.find(c => c.name === interaction.commandName)
-        if (cmd) {
-            await interaction.deferReply()
-            cmd.run(interaction)
+        //for ephemeral commands
+        if (interaction.commandName === "help") {
+            const help = await this.client.slashCommands.find(c => c.name === "help")
+
+            help.run(interaction)
+        } else {
+            const cmd = await this.client.slashCommands.find(c => c.name === interaction.commandName)
+            if (cmd) {
+                await interaction.deferReply()
+
+                cmd.run(interaction)
+            }
         }
     }
 }
