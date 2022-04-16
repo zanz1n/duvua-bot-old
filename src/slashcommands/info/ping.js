@@ -4,7 +4,7 @@ module.exports = class extends slashCommand {
     constructor(client) {
         super(client, {
             name: "ping",
-            description: "Responde com pong e mostra o ping do bot"
+            description: "Responde com pong e mostra o meu ping"
         })
     }
     async run(interaction) {
