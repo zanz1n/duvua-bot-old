@@ -38,21 +38,19 @@ module.exports = {
         "https://loritta.website/assets/img/actions/kiss/female_x_female/gif_347.gif",
     ],
     gifs_b: [
-        [
-            "https://i.pinimg.com/originals/2f/0f/82/2f0f82e4fb0dee8efd75bee975496eab.gif",
-            "https://www.intoxianime.com/wp-content/uploads/2017/04/tumblr_ooub8fIHkT1qz64n4o2_400.gif",
-            "https://i.pinimg.com/originals/65/57/f6/6557f684d6ffcd3cd4558f695c6d8956.gif",
-            "https://c.tenor.com/T6PzZiyIV6AAAAAC/tapa-anime-bosta-tapa.gif",
-            "https://i.gifer.com/VF8X.gif",
-            "https://c.tenor.com/blbrtpA-HTgAAAAC/tapa.gif",
-            "https://i.gifer.com/1Vbb.gif",
-            "https://i.gifer.com/K02.gif",
-            "https://i.gifer.com/1flm.gif",
-            "https://i.pinimg.com/originals/b9/74/54/b97454d61d518852bef17e40703bb3fe.gif",
-            "https://pa1.narvii.com/6419/4b866403d4f05d14b0df8d4e43a50e9c10f2a6c8_hq.gif",
-            "https://i.gifer.com/FMxE.gif",
-            "https://i.gifer.com/QVlJ.gif",
-            "https://pa1.narvii.com/6419/ce80adf14c7374939f17f607a5e72f129679f426_hq.gif",
-        ]
+        "https://i.pinimg.com/originals/2f/0f/82/2f0f82e4fb0dee8efd75bee975496eab.gif",
+        "https://www.intoxianime.com/wp-content/uploads/2017/04/tumblr_ooub8fIHkT1qz64n4o2_400.gif",
+        "https://i.pinimg.com/originals/65/57/f6/6557f684d6ffcd3cd4558f695c6d8956.gif",
+        "https://c.tenor.com/T6PzZiyIV6AAAAAC/tapa-anime-bosta-tapa.gif",
+        "https://i.gifer.com/VF8X.gif",
+        "https://c.tenor.com/blbrtpA-HTgAAAAC/tapa.gif",
+        "https://i.gifer.com/1Vbb.gif",
+        "https://i.gifer.com/K02.gif",
+        "https://i.gifer.com/1flm.gif",
+        "https://i.pinimg.com/originals/b9/74/54/b97454d61d518852bef17e40703bb3fe.gif",
+        "https://pa1.narvii.com/6419/4b866403d4f05d14b0df8d4e43a50e9c10f2a6c8_hq.gif",
+        "https://i.gifer.com/FMxE.gif",
+        "https://i.gifer.com/QVlJ.gif",
+        "https://pa1.narvii.com/6419/ce80adf14c7374939f17f607a5e72f129679f426_hq.gif"
     ]
 }
