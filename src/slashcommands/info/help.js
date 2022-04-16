@@ -34,8 +34,7 @@ module.exports = class extends slashCommand {
             .addField("Tem alguma função legal que gostaria de ver no bot ou alguma sugestão?", "Sugira no nosso [servidor do discord](https://discord.com), a dm <@586600481959182357>, ou para coisas mais técnicas o [nosso github](https://github.com).")
             .setThumbnail(this.client.user.displayAvatarURL())
 
-            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
+            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
         await interaction.reply({ embeds: [embed], ephemeral: true })
     }
 }
-//.addField("", "", true)
