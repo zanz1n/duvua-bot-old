@@ -1,3 +1,5 @@
+<p><strong>This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.</strong></p>
+
 <h2>[en-US]</h2>
 <h1> duvua-bot </h1>
 <p>Duvua is and discord bot that can do all that your server need and supports simple commands whith prefix -, and slash commands.</p>
