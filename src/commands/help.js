@@ -28,7 +28,7 @@ module.exports = {
             .addField("Fun", "Comandos for fun e de diversão em geral.")
 
             .addField("\:globe_with_meridians: kiss", find("kiss"), true).addField("\:globe_with_meridians:\:m: avatar", find("avatar"), true)
-            .addField("\:globe_with_meridians: anime", find("anime"), true)
+            .addField("\:globe_with_meridians:\:m: anime", find("anime"), true)
 
             .addField("Tem alguma função legal que gostaria de ver no bot ou alguma sugestão?", "Sugira no nosso [servidor do discord](https://discord.com), a dm <@586600481959182357>, ou para coisas mais técnicas o [nosso github](https://github.com).")
             //ends of imutable
