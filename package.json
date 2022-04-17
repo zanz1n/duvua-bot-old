@@ -12,12 +12,10 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "@iamtraction/google-translate": "^1.1.2",
-    "animequote": "^1.1.1",
     "discord-player": "^5.2.2",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "ffmpeg-static": "^4.4.1",
-    "kitsu": "^10.0.0-alpha.22",
     "mal-scraper": "^2.11.4",
     "node-fetch": "^2.6.7"
   },
