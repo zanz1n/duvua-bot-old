@@ -6,7 +6,7 @@ module.exports = class extends slashCommand {
     constructor(client) {
         super(client, {
             name: "songinfo",
-            description: "Mostra informações do som que está tocando",
+            description: "Mostra o som que está tocando",
         })
     }
 
