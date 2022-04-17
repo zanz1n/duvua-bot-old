@@ -1,11 +1,13 @@
 console.log(`\x1b[34m[bot-api] Starting ...`)
+
 const Discord = require('discord.js')
 const { Client, MessageEmbed, Intents } = require('discord.js')
 const fs = require('fs')
 const { join } = require('path')
-require('dotenv').config()
 const { Player } = require('discord-player')
 const { Permissions } = require('discord.js')
+
+require('dotenv').config()
 
 const prefix = "-"
 class ClienT extends Client {
