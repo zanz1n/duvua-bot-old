@@ -40,12 +40,12 @@ module.exports = class extends slashCommand {
             return interaction.editReply({ content: " ", embeds: [embed] })
         }
         else {
-            embed.setTitle(`O amor está no ar!  \:heart:`).setDescription(`${interaction.user} beijou ${user}`)
-                .setImage(links[random(0, links.length)]).setFooter("🔁 para retribuir  |  ❌ para negar")
+            embed.setTitle(`O amor está no ar!  \:heart:`).setDescription(`${interaction.user} beijou ${user}`).setImage(links[random(0, links.length)])
                 .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
+
             const button = new MessageActionRow().addComponents(
-                new MessageButton().setCustomId('1').setLabel('🔁').setStyle('PRIMARY').setDisabled(false),
-                new MessageButton().setCustomId('2').setLabel('❌').setStyle('PRIMARY').setDisabled(false)
+                new MessageButton().setCustomId('1').setLabel('Retribuir 🔁').setStyle('PRIMARY').setDisabled(false),
+                new MessageButton().setCustomId('2').setLabel('Recusar ❌').setStyle('PRIMARY').setDisabled(false)
             )
             await interaction.editReply({ content: " ", embeds: [embed], components: [button] })
 
