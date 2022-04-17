@@ -102,7 +102,7 @@ client.on("messageCreate", async (message) => {
         if (msgcommand.toLowerCase() === client.commands.get(cmds[number]).name) client.commands.get(cmds[number]).execute(client, message, args) //commands is now .toLowerCase()
     }
     load(0, 'ping'); load(1, 'say'); load(2, 'embed'); load(3, 'play'); load(4, 'skip'); load(5, 'stop'); load(6, 'queue');
-    load(7, 'songinfo'); load(8, 'memory'); load(9, 'avatar');
+    load(7, 'songinfo'); load(8, 'memory'); load(9, 'avatar'); load(10, 'help');
 })
 
 module.exports = ClienT
