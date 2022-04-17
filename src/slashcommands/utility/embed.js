@@ -6,7 +6,7 @@ module.exports = class extends slashCommand {
     constructor(client) {
         super(client, {
             name: "embed",
-            description: "Faz uma embed com o que você me disser",
+            description: "Faço uma embed com o que me disser",
             options: [
                 {
                     name: "content",
