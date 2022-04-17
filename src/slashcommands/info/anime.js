@@ -39,7 +39,7 @@ module.exports = class extends slashCommand {
                 .addField("Score:", `${data.score}`, true).addField("Status:", `${data.status}`, true)
 
                 .addField("Sinopse:", `${trad.text.replace("[Escrito por MAL Rewrite]", " ").slice(0, 560)} [...]\n`)
-                .addField("\n**[Escrito por 'MAL' Rewrite]**", `A sinopse acima está limitada à 560 linhas para não ocupar muito espaço em sua tela, para ver a original clique **[aqui](${data.url}).**\n`, true)
+                .addField("\n**[Escrito por MAL Rewrite]**", `A sinopse acima está limitada à 560 linhas para não ocupar muito espaço em sua tela, para ver a original clique **[aqui](${data.url}).**\n`, true)
                 
                 .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
 
