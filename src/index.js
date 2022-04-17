@@ -50,7 +50,7 @@ class ClienT extends Client {
         }
     }
     registrySlashCommands() {
-        this.guilds.cache.get('951236777560129627').commands.set(this.slashCommands) //for Dev
+        this.guilds.cache.get(process.env.GUILD_ID).commands.set(this.slashCommands) //for Dev
         // this.application.commands.set(this.commands) //for Production environment
     }
     loadPlayer() {
