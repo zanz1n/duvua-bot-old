@@ -7,19 +7,28 @@ module.exports = class extends Event {
         })
     }
     run = async (interaction) => {
+
         if (!interaction.isCommand || interaction.user.bot) return
-        //for ephemeral commands
-        if (interaction.commandName === "help") {
-            const help = await this.client.slashCommands.find(c => c.name === "help")
+        const cmd = await this.client.slashCommands.find(c => c.name === interaction.commandName)
+        const ephemeral = (string) => interaction.commandName === string //boolean
 
-            help.run(interaction)
+        if (ephemeral("help") || ephemeral("info")) {
+            await interaction.deferReply({ ephemeral: true })
+
         } else {
-            const cmd = await this.client.slashCommands.find(c => c.name === interaction.commandName)
-            if (cmd) {
-                await interaction.deferReply()
-
-                cmd.run(interaction)
-            }
+            await interaction.deferReply()
         }
+        cmd.run(interaction)
     }
 }
+/*
+ *catch (err) {
+            if (interaction.user.id === "586600481959182357") return interaction.editReply({ content: "```diff\n-Erro: algo de errado aconteceu durante a execução desse comando!\n```" + `\`\n${err}\`` })
+            interaction.editReply({ content: "```diff\n-Erro: algo de errado aconteceu durante a execução desse comando!\n```" })
+        }
+ *
+ * 
+ * 
+ * 
+ * 
+ */
