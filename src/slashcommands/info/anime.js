@@ -23,7 +23,8 @@ module.exports = class extends slashCommand {
 
         const req = interaction.options.getString('nome').split(/\s+/g).join(" ").toLowerCase()
 
-        if (req.length > 80) return interaction.editReply({ content: `\`\`\`diff\n-Não insira um nome com mais de 80 caracteres ${interaction.user.username}!\n\`\`\`` })
+        if (req.length > 80) return embed.setDescription(`**Não insira um nome com mais de 80 caracteres ${interaction.user.username}!**`),
+            await interaction.editReply({ embeds: [embed] })
 
         await interaction.editReply({content: `**\`Procurando por "${req}" [...]\`**`})
 
