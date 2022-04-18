@@ -1,4 +1,4 @@
-console.log(`\x1b[34m[bot-api] Starting ...\x1b[0m`)
+console.log(`\x1b[33m[bot-api] Starting [...]\x1b[0m`)
 
 const Discord = require('discord.js')
 const { Client, MessageEmbed, Intents } = require('discord.js')
@@ -34,7 +34,7 @@ class ClienT extends Client {
                 console.log(`\x1b[35m[bot-commands] slashCommand ${scmd.name} loaded\x1b[0m`)
             }
         }
-        console.log(`\x1b[34m[bot-api] All slashCommands loaded\x1b[0m`)
+        console.log(`\x1b[33m[bot-api] All slashCommands loaded\x1b[0m`)
     }
     loadCommands(path = 'src/commands') {
         const categories = fs.readdirSync(path)
@@ -45,10 +45,10 @@ class ClienT extends Client {
                 const cmd = require(join(process.cwd(), `${path}/${category}/${command}`))
 
                 this.commands.push(cmd)
-                console.log(`\x1b[35m[bot-commands] legacyCommand ${cmd.name} loaded\x1b[0m`)
+                console.log(`\x1b[34m[bot-commands] legacyCommand ${cmd.name} loaded\x1b[0m`)
             }
         }
-        console.log(`\x1b[34m[bot-api] All legacyCommand loaded\x1b[0m`)
+        console.log(`\x1b[33m[bot-api] All legacyCommand loaded\x1b[0m`)
     }
     loadEvents(path = 'src/events') {
         const categories = fs.readdirSync(path)
