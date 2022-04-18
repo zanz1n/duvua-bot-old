@@ -23,12 +23,12 @@ module.exports = {
 
             .addField("\:globe_with_meridians:\:m: ping", find("ping"), true).addField("\:globe_with_meridians: info", find("info"), true)
             .addField("\:globe_with_meridians:\:m: embed", find("embed"), true).addField("\:globe_with_meridians:\:m: say", find("say"), true)
-            .addField("\:globe_with_meridians:\:m: help", find("help"), true).addField("*", "*", true)
+            .addField("\:globe_with_meridians:\:m: help", find("help"), true).addField("\:globe_with_meridians:\:m: anime", find("anime"), true)
 
             .addField("Fun", "Comandos for fun e de diversão em geral.")
 
             .addField("\:globe_with_meridians: kiss", find("kiss"), true).addField("\:globe_with_meridians:\:m: avatar", find("avatar"), true)
-            .addField("\:globe_with_meridians:\:m: anime", find("anime"), true).addField("\:m: bruno", find("Não falamos do Bruno"), true)
+            .addField("\:m: bruno", "Não falamos do Bruno", true)
 
             .addField("Tem alguma função legal que gostaria de ver no bot ou alguma sugestão?", "Sugira no nosso [servidor do discord](https://discord.com), a dm <@586600481959182357>, ou para coisas mais técnicas o [nosso github](https://github.com).")
             //ends of imutable
