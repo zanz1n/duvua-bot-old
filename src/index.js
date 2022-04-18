@@ -1,4 +1,4 @@
-console.log(`\x1b[34m[bot-api] Starting ...`)
+console.log(`\x1b[34m[bot-api] Starting ...\x1b[0m`)
 
 const Discord = require('discord.js')
 const { Client, MessageEmbed, Intents } = require('discord.js')
@@ -14,8 +14,9 @@ class ClienT extends Client {
     constructor(options) {
         super(options)
         this.prefix = prefix
-        this.commands = new Discord.Collection()
+        this.commands = []
         this.slashCommands = []
+        this.loadCommands()
         this.loadSlashCommands()
         this.loadEvents()
         this.loadPlayer()
@@ -34,6 +35,20 @@ class ClienT extends Client {
             }
         }
         console.log(`\x1b[34m[bot-api] All slashCommands loaded\x1b[0m`)
+    }
+    loadCommands(path = 'src/commands') {
+        const categories = fs.readdirSync(path)
+        for (const category of categories) {
+            const commands = fs.readdirSync(`${path}/${category}`)
+
+            for (const command of commands) {
+                const cmd = require(join(process.cwd(), `${path}/${category}/${command}`))
+
+                this.commands.push(cmd)
+                console.log(`\x1b[35m[bot-commands] legacyCommand ${cmd.name} loaded\x1b[0m`)
+            }
+        }
+        console.log(`\x1b[34m[bot-api] All legacyCommand loaded\x1b[0m`)
     }
     loadEvents(path = 'src/events') {
         const categories = fs.readdirSync(path)
@@ -71,38 +86,6 @@ const client = new ClienT({
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS
     ],
     partials: ['MESSAGE', 'REACTION']
-})
-
-const CMDfiles = fs.readdirSync('src/commands/').filter(file => file.endsWith('.js'))
-const CMDfiles2 = fs.readdirSync('src/commands/music').filter(file => file.endsWith('.js'))
-
-for (const file of CMDfiles) {
-
-    const command = require(`../src/commands/${file}`)
-    client.commands.set(command.name, command)
-
-    console.log(`\x1b[35m[bot-commands] command ${command.name} loaded\x1b[0m`)
-}
-for (const file of CMDfiles2) {
-
-    const command = require(`../src/commands/music/${file}`)
-    client.commands.set(command.name, command)
-
-    console.log(`\x1b[35m[bot-commands] command ${command.name} loaded\x1b[0m`)
-}
-
-client.on("messageCreate", async (message) => {
-    if (message.author.bot || !message.content.startsWith(prefix)) return
-    const [msgcommand, agors] = message.content.trim().substring(prefix.length).split(/\s+/)
-    const args = message.content.replace(prefix + msgcommand, "")
-    let cmds = []
-
-    function load(number, name) {
-        cmds.push(name)
-        if (msgcommand.toLowerCase() === client.commands.get(cmds[number]).name) client.commands.get(cmds[number]).execute(client, message, args) //commands is now .toLowerCase()
-    }
-    load(0, 'ping'); load(1, 'say'); load(2, 'embed'); load(3, 'play'); load(4, 'skip'); load(5, 'stop'); load(6, 'queue');
-    load(7, 'songinfo'); load(8, 'memory'); load(9, 'avatar'); load(10, 'help'); load(11, 'anime'); load(12, 'bruno');
 })
 
 module.exports = ClienT
