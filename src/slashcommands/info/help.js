@@ -33,7 +33,7 @@ module.exports = class extends slashCommand {
             .addField("Fun", "Comandos for fun e de diversão em geral.")
 
             .addField("\:globe_with_meridians: kiss", find("kiss"), true).addField("\:globe_with_meridians:\:m: avatar", find("avatar"), true)
-            .addField("\:globe_with_meridians:\:m: anime", find("anime"), true)
+            .addField("\:globe_with_meridians:\:m: anime", find("anime"), true).addField("\:m: bruno", find("Não falamos do Bruno"), true)
 
             .addField("Tem alguma função legal que gostaria de ver no bot ou alguma sugestão?", "Sugira no nosso [servidor do discord](https://discord.com), a dm <@586600481959182357>, ou para coisas mais técnicas o [nosso github](https://github.com).")
             //end of imutable
