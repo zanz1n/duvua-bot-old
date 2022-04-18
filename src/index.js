@@ -31,10 +31,10 @@ class ClienT extends Client {
                 const scmd = new (slashCommandClass)(this)
 
                 this.slashCommands.push(scmd)
-                console.log(`\x1b[35m[bot-commands] slashCommand ${scmd.name} loaded\x1b[0m`)
+                console.log(`\x1b[35m[bot-slashCommands] ${scmd.name} loaded\x1b[0m`)
             }
         }
-        console.log(`\x1b[33m[bot-api] All slashCommands loaded\x1b[0m`)
+        console.log(`\x1b[33m[bot-api] all slashCommands loaded\x1b[0m`)
     }
     loadCommands(path = 'src/commands') {
         const categories = fs.readdirSync(path)
@@ -45,7 +45,7 @@ class ClienT extends Client {
                 const cmd = require(join(process.cwd(), `${path}/${category}/${command}`))
 
                 this.commands.push(cmd)
-                console.log(`\x1b[34m[bot-commands] legacyCommand ${cmd.name} loaded\x1b[0m`)
+                console.log(`\x1b[34m[bot-legacyCommands] ${cmd.name} loaded\x1b[0m`)
             }
         }
         console.log(`\x1b[33m[bot-api] All legacyCommand loaded\x1b[0m`)
