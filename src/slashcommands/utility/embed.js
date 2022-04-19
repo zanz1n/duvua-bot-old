@@ -20,12 +20,12 @@ module.exports = class extends slashCommand {
     async run(interaction) {
         let embed = new MessageEmbed()
         if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
-            return embed.setDescription(`**Você não tem permissão para usar esse comando!,  ${interaction.user.username}**`),
-                await interaction.editReply({ embeds: [embed] })
+            embed.setDescription(`**Você não tem permissão para usar esse comando,  ${interaction.user.username}**`)
+            return await interaction.editReply({ embeds: [embed] })
         }
         if (interaction.options.getString('content') === "" || undefined) {
-            return embed.setDescription("Você precisa inserir algo na embed"),
-                interaction.editReply({ embeds: [embed] })
+            embed.setDescription("**Você precisa inserir algo na embed**")
+            return await interaction.editReply({ embeds: [embed] })
         }
         embed.setTitle(interaction.options.getString('content'))
             .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
