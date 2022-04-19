@@ -6,18 +6,19 @@ module.exports = {
     name: "play",
     description: "Toca uma música do youtube",
     async execute(client, message, args) {
+        let embed = new MessageEmbed()
+
         const msg = await message.channel.send({ content: `\`Carregando [${message.content.replace(client.prefix + "play", "")} ]\`` })
         if (!message.member.voice.channel) {
-            return msg.edit({ content: "```diff\n-Você prefisa estart em um VC para tocar uma música\n```" })
+            embed.setDescription(`**Você prefisa estart em um canal de voz para tocar uma música, ${message.author.username}**`)
+            return msg.edit({ content: null, embeds: [embed] })
         }
         const queue = await client.player.createQueue(message.guild)
         if (!queue.connection) await queue.connect(message.member.voice.channel)
 
-        let embed = new MessageEmbed()
-
-        if (args.length > 75) { //args
-            return embed.setDescription("**Acalme-se, esse texto é muito grande!**"),
-                msg.edit({ content: " ", embeds: [embed] })
+        if (args.length > 80) { //args
+            embed.setDescription(`**Não pesquiso por títulos com mais de 80 caracteres, ${message.author.username}**`)
+            return msg.edit({ content: null, embeds: [embed] })
         }
 
         let url = args //args[0]
@@ -33,8 +34,8 @@ module.exports = {
             })
 
             if (result.tracks.length == 0) {
-                return embed.setDescription(`**Nenhum som:** *${args}* **encontrado**`),
-                    msg.edit({ content: " ", embeds: [embed] })
+                embed.setDescription(`**Nenhum som "${args}" encontrado, ${message.author.username}**`)
+                return msg.edit({ content: null, embeds: [embed] })
             }
         }
 

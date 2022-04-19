@@ -10,8 +10,8 @@ module.exports = {
         const queue = client.player.getQueue(message.guildId)
         let embed = new MessageEmbed()
         if (!queue || !queue.playing) {
-            return embed.setDescription(`**Não há nenhum som na fila!**`),
-                await msg.edit({ content: " ", embeds: [embed] })
+            embed.setDescription(`**Não há nenhum som na fila**`)
+            return await msg.edit({ content: null, embeds: [embed] })
         }
 
         const queueString = queue.tracks.join("\n")
@@ -24,6 +24,6 @@ module.exports = {
             .setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: message.author.displayAvatarURL() })
             .setThumbnail(currentSong.thumbnail).setTimestamp()
 
-        msg.edit({ content: " ", embeds: [embed] })
+        msg.edit({ content: null, embeds: [embed] })
     }
 }

@@ -11,12 +11,12 @@ module.exports = {
         let embed = new MessageEmbed()
 
         if (!queue) {
-            return embed.setDescription(`**Não há nenhum som na fila,  ${message.author.username}**`),
-                await message.channel.send({ embeds: [embed] })
+            embed.setDescription(`**Não há nenhum som na fila,  ${message.author.username}**`)
+            return message.channel.send({ content: null, embeds: [embed] })
         }
         queue.skip()
 
         embed.setDescription(`**Música** ${queue.current.title} **pulada por ${message.author.username}**`)
-        await message.channel.send({ embeds: [embed] })
+        await message.channel.send({ content: null, embeds: [embed] })
     }
 }

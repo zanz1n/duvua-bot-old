@@ -12,8 +12,8 @@ module.exports = {
         let embed = new MessageEmbed()
 
         if (!queue) {
-            return embed.setDescription(`**Não há nenhum som na fila,  ${message.author.username}**`),
-                await msg.edit({ content: " ", embeds: [embed] })
+            embed.setDescription(`**Não há nenhum som na fila,  ${message.author.username}**`)
+            return await msg.edit({ content: null, embeds: [embed] })
         }
 
         let bar = queue.createProgressBar({
@@ -26,6 +26,6 @@ module.exports = {
         embed.setThumbnail(song.thumbnail)
             .setDescription(`**${message.author.username}**\n\nTocando agora: [${song.title}](${song.url})\n\n**Duração: [${song.duration}]**\n\n ${bar}`)
 
-        await msg.edit({ content: " ", embeds: [embed] })
+        await msg.edit({ content: null, embeds: [embed] })
     }
 }
