@@ -1,4 +1,5 @@
 const slashCommand = require('../../slashCommands')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class extends slashCommand {
     constructor(client) {
@@ -8,6 +9,7 @@ module.exports = class extends slashCommand {
         })
     }
     async run(interaction) {
-        await interaction.editReply({ content: "Pong\nPing do bot: `" + this.client.ws.ping + "` ms", ephemeral: true })
+        const embed = new MessageEmbed().setDescription("**Pong!\nPing do bot: " + this.client.ws.ping + " ms**")
+        await interaction.editReply({ content: null, embeds: [embed] })
     }
 }

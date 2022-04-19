@@ -28,6 +28,6 @@ module.exports = class extends slashCommand {
         embed.setAuthor("Avatar de " + user.username, user.displayAvatarURL()).setImage(image)
             .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
             .setTimestamp().setDescription(`**Clique [aqui](${user.displayAvatarURL({ format: 'png' })}) para ver original!**`)
-        await interaction.editReply({ content: " ", embeds: [embed] })
+        await interaction.editReply({ embeds: [embed] })
     }
 }

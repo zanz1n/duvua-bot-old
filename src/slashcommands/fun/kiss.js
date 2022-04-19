@@ -27,17 +27,17 @@ module.exports = class extends slashCommand {
 
         if (user === this.client.user) {
             embed.setDescription(`**Vamos manter nossa relação como uma amizade, ok ${interaction.user}?**`)
-            return interaction.editReply({ content: " ", embeds: [embed] })
+            return interaction.editReply({ embeds: [embed] })
         }
         /*else if (user.bot) {
             embed.setDescription(`**Você não pode beijar um bot ${interaction.user}!**`)
-            return interaction.editReply({ content: " ", embeds: [embed] })
+            return interaction.editReply({ embeds: [embed] })
         }*/ //do not permit kissing bots
 
         else if (user === interaction.user) {
             embed.setTitle(`O amor está no ar!  \:heart:`).setDescription(`${interaction.user} beijou ${user}`)
                 .setImage(links[random(0, links.length)])
-            return interaction.editReply({ content: " ", embeds: [embed] })
+            return interaction.editReply({ embeds: [embed] })
         }
         else {
             embed.setTitle(`O amor está no ar!  \:heart:`).setDescription(`${interaction.user} beijou ${user}`).setImage(links[random(0, links.length)])
@@ -47,7 +47,7 @@ module.exports = class extends slashCommand {
                 new MessageButton().setCustomId('1').setLabel('Retribuir 🔁').setStyle('PRIMARY').setDisabled(false),
                 new MessageButton().setCustomId('2').setLabel('Recusar ❌').setStyle('PRIMARY').setDisabled(false)
             )
-            await interaction.editReply({ content: " ", embeds: [embed], components: [button] })
+            await interaction.editReply({ embeds: [embed], components: [button] })
 
             const filter = (btnInt) => {
                 return btnInt.user.id === user.id
