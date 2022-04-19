@@ -16,8 +16,8 @@ module.exports = class extends slashCommand {
         let embed = new MessageEmbed()
 
         if (!queue) {
-            return embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`),
-                await interaction.editReply({ embeds: [embed] })
+            embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`)
+            return await interaction.editReply({ content: null, embeds: [embed] })
         }
 
         let bar = queue.createProgressBar({
@@ -29,6 +29,6 @@ module.exports = class extends slashCommand {
 
         embed.setThumbnail(song.thumbnail).setDescription(`**${interaction.user.username}**\n\nTocando agora: [${song.title}](${song.url})\n\n**Duração: [${song.duration}]**\n\n ${bar}`)
 
-        await interaction.editReply({ embeds: [embed] })
+        await interaction.editReply({ content: null, embeds: [embed] })
     }
 }

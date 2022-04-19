@@ -13,8 +13,8 @@ module.exports = class extends slashCommand {
         const queue = this.client.player.getQueue(interaction.guildId)
         let embed = new MessageEmbed()
         if (!queue || !queue.playing) {
-            return embed.setDescription(`**Não há nenhum som na fila!**`),
-                await interaction.editReply({ embeds: [embed] })
+            embed.setDescription(`**Não há nenhum som na fila**`)
+            return await interaction.editReply({ content: null, embeds: [embed] })
         }
 
         const queueString = queue.tracks.join("\n")
@@ -27,6 +27,6 @@ module.exports = class extends slashCommand {
             .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
             .setThumbnail(currentSong.thumbnail)
 
-        interaction.editReply({ embeds: [embed] })
+        interaction.editReply({ content: null, embeds: [embed] })
     }
 }

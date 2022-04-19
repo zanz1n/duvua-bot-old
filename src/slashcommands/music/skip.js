@@ -16,12 +16,12 @@ module.exports = class extends slashCommand {
         let embed = new MessageEmbed()
 
         if (!queue) {
-            return embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`),
-                await interaction.editReply({ embeds: [embed] })
+            embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`)
+            return await interaction.editReply({ content: null, embeds: [embed] })
         }
         queue.skip()
 
         embed.setDescription(`**Música** ${queue.current.title} **pulada por ${interaction.user.username}**`)
-        await interaction.editReply({ embeds: [embed] })
+        await interaction.editReply({ content: null, embeds: [embed] })
     }
 }
