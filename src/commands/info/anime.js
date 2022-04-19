@@ -10,7 +10,7 @@ module.exports = {
 
         const req = args.split(/\s+/g).join(" ").toLowerCase()
 
-        if (req.length > 80) return embed.setDescription(`**Não insira um nome com mais de 80 caracteres ${message.author.username}!**`),
+        if (req.length > 80) return embed.setDescription(`**Não insira um nome com mais de 80 caracteres ${message.author.username}**`),
             await message.reply({ embeds: [embed] }),
             message.delete()
 
@@ -30,15 +30,17 @@ module.exports = {
                 .addField("Score:", `${data.score}`, true).addField("Status:", `${data.status}`, true)
 
                 .addField("Sinopse:", `${trad.text.replace("[Escrito por MAL Rewrite]", " ").slice(0, 560)} [...]\n`)
-                .addField("\n**[Escrito por MAL Rewrite]**", `A sinopse acima está limitada à 560 linhas para não ocupar muito espaço em sua tela, para ver a original clique **[aqui](${data.url}).**\n`, true)
+                .addField("\n**[Escrito por MAL Rewrite]**", `A sinopse acima está limitada à 560 palavras para não ocupar muito espaço em sua tela, para ver a original clique **[aqui](${data.url}).**\n`, true)
 
                 .setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: message.author.displayAvatarURL() }).setTimestamp()
 
             await msg.edit({ content: " ", embeds: [embed] })
 
         }).catch(async err => {
-            if (message.author.id === "586600481959182357") return await msg.edit({ content: `Nenhum anime com nome ${req} foi encontrado\n\`${err}\`` })
-            await msg.edit({ content: `Nenhum anime com nome "${req}" foi encontrado` })
+            const embed2 = new MessageEmbed().setDescription(`**Sinto muito, mas não foi possível achar um anime com nome ${req}, ${message.author.username}**`)
+            if (message.author.id === "586600481959182357") embed2.addField("Erro:", `\`\`\`diff\n-${err}\`\`\``)
+
+            await msg.edit({ content: null, embeds: [embed2] })
         })
     }
 }

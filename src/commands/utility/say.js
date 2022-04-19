@@ -7,10 +7,13 @@ module.exports = {
     async execute(client, message, args) {
         let embed = new MessageEmbed()
         if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
-            return embed.setDescription(`**Você não tem permissão para usar esse comando!,  ${interaction.user.username}**`),
-                await message.reply({ embeds: [embed] })
+            embed.setDescription(`**Você não tem permissão para usar esse comando,  ${message.author.username}**`)
+            return await message.reply({ embeds: [embed] })
         }
-        if (args === undefined || args.length <= 1) return message.reply(`Você precisa inserir uma mensagem ${message.author}`)
+        if (args === undefined || args.length <= 1) {
+            embed.setDescription(`**Você precisa inserir uma mensagem, ${message.author.username}**`)
+            return await message.reply({ embeds: [embed] })
+        }
         await message.channel.send(`${args}\n-${message.author}`)
     }
 }
