@@ -1,4 +1,4 @@
-const slashCommand = require('../../slashCommands')
+const slashCommand = require('../../structures/slashCommands')
 const { MessageEmbed } = require('discord.js')
 const malScraper = require('mal-scraper')
 const translate = require('@iamtraction/google-translate')

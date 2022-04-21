@@ -1,4 +1,4 @@
-const Event = require('../../Event')
+const Event = require('../../structures/Event')
 
 module.exports = class extends Event {
     constructor(client) {
@@ -11,7 +11,7 @@ module.exports = class extends Event {
         if (!interaction.isCommand || interaction.user.bot) return
         const cmd = await this.client.slashCommands.find(c => c.name === interaction.commandName)
 
-        if(!cmd) return
+        if (!cmd) return
 
         const ephemeral = (string) => interaction.commandName === string //boolean
 

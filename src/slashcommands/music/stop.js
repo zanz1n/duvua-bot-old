@@ -1,4 +1,4 @@
-const slashCommand = require('../../slashCommands')
+const slashCommand = require('../../structures/slashCommands')
 const { MessageEmbed } = require('discord.js')
 const { Permissions } = require('discord.js')
 

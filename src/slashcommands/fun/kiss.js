@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js')
-const slashCommand = require('../../slashCommands')
+const slashCommand = require('../../structures/slashCommands')
 const { Permissions } = require('discord.js')
 
 module.exports = class extends slashCommand {
@@ -23,7 +23,7 @@ module.exports = class extends slashCommand {
         const user = options.find((e) => e.name === "user") && options.find((e) => e.name === "user").member.user
         const random = (min, max) => Math.floor(Math.random() * (max - min) + min)
 
-        const links = require('../../gifs/gifs').gifs_a
+        const links = require('../../utils/gifs').gifs_a
 
         if (user === this.client.user) {
             embed.setDescription(`**Vamos manter nossa relação como uma amizade, ok ${interaction.user}?**`)
@@ -63,7 +63,7 @@ module.exports = class extends slashCommand {
                     await i.reply({ embeds: [embedRetribuir] })
                 }
                 else if (i.customId === '2') {
-                    const slap = require('../../gifs/gifs').gifs_b
+                    const slap = require('../../utils/gifs').gifs_b
                     const embedRetribuir = new MessageEmbed().setTitle(`Quem nunca levou um fora, né ${interaction.user.username}`)
                         .setDescription(`${i.user} negou o beijo de ${interaction.user}  \:broken_heart:`)
                         .setImage(slap[random(0, slap.length)])

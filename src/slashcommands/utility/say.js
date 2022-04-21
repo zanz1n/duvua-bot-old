@@ -1,4 +1,4 @@
-const slashCommand = require('../../slashCommands')
+const slashCommand = require('../../structures/slashCommands')
 const { Permissions } = require('discord.js')
 
 module.exports = class extends slashCommand {
