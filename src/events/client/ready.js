@@ -6,11 +6,29 @@ module.exports = class extends Event {
             name: "ready"
         })
     }
-    run = () => {
+    run = async () => {
+        await this.client.connectToDatabase()
+
         this.client.user.setActivity(`type /help or ${this.client.prefix}help`);
 
         this.client.registrySlashCommands()
-        console.log(`\x1b[33m[bot-api] Client logged to discord-api as ${this.client.user.username} in ${this.client.guilds.cache.size} guild(s)\x1b[0m`)
-        //console.log("\x1b[33m[bot-api] memoryUsage: " + parseInt(memoryUsage().heapTotal / 1024 ** 2) + "/" + parseInt(memoryUsage().rss / 1024 ** 2) + " MB\x1b[0m") //to check memory usage when bot finish load
+        console.log(`\x1b[33m[bot-api] logged to discord-api as ${this.client.user.tag} in ${this.client.guilds.cache.size} guild(s)\x1b[0m`)
     }
 }
+/*
+ *  this.client.database = {
+        user: User,
+        command: Command,
+        guild: Guild,
+        client: Client
+    }
+ *
+ *  const mongoose = require('mongoose')
+ * 
+ *  const Client = require('../../database/models/client')
+    const User = require('../../database/models/user')
+    const Guild = require('../../database/models/guild')
+    const Command = require('../../database/models/command')
+ * 
+ * 
+ */

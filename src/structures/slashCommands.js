@@ -4,6 +4,7 @@ class slashCommand {
         this.name = options.name
         this.description = options.description
         this.options = options.options
+        this.requireDatabase = options.requireDatabase
     }
 }
 
