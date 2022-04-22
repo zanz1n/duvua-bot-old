@@ -1,0 +1,10 @@
+/*
+ *      COPY TO config.json 
+ */
+{
+    "prefix": "-",
+    "embed-default-hex-color": "#df6fd9",
+    "token": "bot token",
+    "mongodb_url": "mongodb+srv://user:password@myCluster.mongodb.net/myDatabase?retryWrites=true&w=majority",
+    "tests-guild-id": "775936751296276012"
+}
