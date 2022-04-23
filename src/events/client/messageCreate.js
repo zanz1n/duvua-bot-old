@@ -25,7 +25,12 @@ module.exports = class extends Event {
             const cmd = this.client.commands.find(el => el.name === msgcommand.toLowerCase())
             if (!cmd) return
 
-            cmd.execute(this.client, message, args)
+            cmd.execute(this.client, message, args).catch((err) => {
+                if (err) console.log("\x1b[31m[bot-err] something whent wrong trying to execute a slashCommand\x1b[0m\n",
+                    err,
+                    "\n\x1b[33m[bot-api] this may affect the usability of the bot\x1b[0m"
+                )
+            })
         }
     }
 }

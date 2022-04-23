@@ -26,7 +26,10 @@ module.exports = class extends Event {
             await interaction.deferReply()
         }
         cmd.run(interaction).catch((err) => {
-            if (err) console.log(err)
+            if (err) console.log("\x1b[31m[bot-err] something whent wrong trying to execute a slashCommand\x1b[0m\n",
+                err,
+                "\n\x1b[33m[bot-api] this may affect the usability of the bot\x1b[0m"
+            )
         })
     }
 }
