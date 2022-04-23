@@ -1,5 +1,6 @@
 const slashCommand = require('../../structures/slashCommands')
 const { Permissions } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class extends slashCommand {
     constructor(client) {
@@ -17,6 +18,7 @@ module.exports = class extends slashCommand {
         })
     }
     async run(interaction) {
+        const embed = new MessageEmbed()
         if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
             embed.setDescription(`**Você não tem permissão para usar esse comando,  ${interaction.user.username}**`)
             return await interaction.editReply({ embeds: [embed] })
