@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 let guildSchema = new Schema({
     _id: { type: String },
     name: { type: String },
-    prefix: { type: String },
+    prefix: { type: String, default: "-" },
     wellcome: {
         channel: { type: String },
         message: { type: String },

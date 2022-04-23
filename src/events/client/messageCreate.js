@@ -15,10 +15,6 @@ module.exports = class extends Event {
 
         const prefix = message.guild.db.prefix
 
-        if (!prefix) {
-            message.guild.db.prefix = "-"
-        }
-
         const [msgcommand] = await message.content.trim().substring(prefix.length).split(/\s+/)
         const args = message.content.replace(prefix + msgcommand, "")
 
