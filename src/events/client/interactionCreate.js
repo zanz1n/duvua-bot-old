@@ -20,11 +20,13 @@ module.exports = class extends Event {
 
         const ephemeral = (string) => interaction.commandName === string //boolean
 
-        if (ephemeral("help") || ephemeral("info")) {
+        if (ephemeral("info")) {
             await interaction.deferReply({ ephemeral: true })
         } else {
             await interaction.deferReply()
         }
-        cmd.run(interaction)
+        cmd.run(interaction).catch((err) => {
+            if (err) console.log(err)
+        })
     }
 }
