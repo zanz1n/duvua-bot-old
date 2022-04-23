@@ -10,17 +10,27 @@ module.exports = class extends Event {
         if (message.author.bot) return
         if (!message.guild) return
 
-        const [msgcommand] = await message.content.trim().substring(this.client.prefix.length).split(/\s+/)
-        const args = message.content.replace(this.client.prefix + msgcommand, "")
+        message.guild.db = await this.client.db.guilds.findById(message.guild.id) ||
+            new this.client.db.guilds({ _id: message.guild.id, name: message.guild.name });
 
-        if (message.content.startsWith(this.client.prefix)) {
+        const prefix = message.guild.db.prefix
+
+        if (!prefix) {
+            message.guild.db.prefix = "-"
+        }
+
+        const [msgcommand] = await message.content.trim().substring(prefix.length).split(/\s+/)
+        const args = message.content.replace(prefix + msgcommand, "")
+
+        if (message.content === `<@${this.client.user.id}>`) return require("../../commands/info/help").execute(this.client, message, args)
+
+        if (message.content.startsWith(prefix)) {
 
             const cmd = this.client.commands.find(el => el.name === msgcommand.toLowerCase())
             if (!cmd) return
 
             cmd.execute(this.client, message, args)
         }
-        else if (message.content === `<@${this.client.user.id}>`) return require("../../commands/info/help").execute(this.client, message, args)
     }
 }
 /*
