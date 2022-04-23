@@ -2,7 +2,7 @@ module.exports = [
     {
         type: 'SUB_COMMAND',
         name: 'wellcome',
-        description: "Canal das mensagens de boas vindas",
+        description: "Altera a mensagem de boas vindas do server",
         options: [
             {
                 name: "canal",
