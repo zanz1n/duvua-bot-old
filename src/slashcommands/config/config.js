@@ -8,25 +8,7 @@ module.exports = class extends slashCommand {
             name: "config",
             description: "Configura o canal das mensagens de bem vindo",
             requireDatabase: true,
-            options: [{
-                type: 'SUB_COMMAND',
-                name: 'wellcome',
-                description: "Canal das mensagens de boas vindas",
-                options: [
-                    {
-                        name: "canal",
-                        description: "O canal que você deseja usar as mensagens",
-                        type: 7,
-                        required: true
-                    },
-                    {
-                        name: "mensagem",
-                        description: "A mensagem de boas vindas que você deseja exibir",
-                        type: 3,
-                        required: true
-                    }
-                ]
-            }]
+            options: require('../../utils/config')
         })
     }
     async run(interaction) {
@@ -35,24 +17,36 @@ module.exports = class extends slashCommand {
             embed.setDescription(`**Você não tem permissão para usar esse comando, ${interaction.user.username}**`)
             return await interaction.editReply({ content: null, embeds: [embed] })
         }
+        const subCommand = interaction.options.getSubcommand()
+        if (subCommand === "wellcome") {
+            const channel = interaction.options.getChannel("canal")
 
-        const channel = interaction.options.getChannel("canal")
+            if (channel.type !== "GUILD_TEXT") {
+                embed.setDescription(`**Você precisa selecionar um canal de texto válido, ${interaction.user.username}**`)
+                return await interaction.editReply({ content: null, embeds: [embed] })
+            }
 
-        if (channel.type !== "GUILD_TEXT") {
-            embed.setDescription(`**Você precisa selecionar um canal de texto válido, ${interaction.user.username}**`)
-            return await interaction.editReply({ content: null, embeds: [embed] })
+            const message = interaction.options.getString("mensagem")
+
+            if (interaction.guild.db.wellcome) interaction.guild.db.wellcome.channel = channel.id
+            else interaction.guild.db.wellcome = { channel: channel.id }
+            interaction.guild.db.wellcome.message = message
+
+            interaction.guild.db.save()
+
+            embed.setDescription(`**Configurações salvas com sucesso, ${interaction.user.username}**`)
+            await interaction.editReply({ content: null, embeds: [embed] })
         }
+        else if (subCommand === "prefix") {
+            const prefix = interaction.options.getString("prefixo")
 
-        const message = interaction.options.getString("mensagem")
+            interaction.guild.db.prefix = prefix
 
-        if (interaction.guild.db.wellcome) interaction.guild.db.wellcome.channel = channel.id
-        else interaction.guild.db.wellcome = { channel: channel.id }
-        interaction.guild.db.wellcome.message = message
+            embed.setDescription(`**Configurações salvas com sucesso, ${interaction.user.username}**\n**Agora o novo prefixo é ${interaction.guild.db.prefix}**`)
+            await interaction.editReply({ content: null, embeds: [embed] })
 
-        interaction.guild.db.save()
-
-        embed.setDescription(`**Configurações salvas com sucesso, ${interaction.user.username}**`)
-        await interaction.editReply({ content: null, embeds: [embed] })
+            interaction.guild.db.save()
+        }
         /*const subCommandGroup = interaction.options.getSubcommandGroup()
         const subCommand = interaction.options.getSubcommand()*/
     }
