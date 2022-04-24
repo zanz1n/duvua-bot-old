@@ -51,7 +51,6 @@ module.exports = class extends Event {
 
         if (message.guild.db.name !== message.guild.name) message.guild.db.name = message.guild.name
         const meta = 3 * (message.author.db.level ** 2)
-        console.log(meta)
 
         if (message.author.db.xp === meta) {
             const embed = new MessageEmbed()
