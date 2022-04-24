@@ -23,8 +23,8 @@ module.exports = class extends Event {
         message.guild.db = await this.client.db.guilds.findById(message.guild.id) ||
             new this.client.db.guilds({ _id: message.guild.id, name: message.guild.name });
 
-        message.author.db = await this.client.db.user.findById(message.guild.id) ||
-            new this.client.db.user({ _id: message.guild.id, userid: message.author.id, usertag: message.author.tag });
+        message.author.db = await this.client.db.member.findById(message.guild.id + message.author.id) ||
+            new this.client.db.member({ _id: message.guild.id + message.author.id, guildid: message.guild.id, userid: message.author.id, usertag: message.author.tag });
 
         const prefix = message.guild.db.prefix
 

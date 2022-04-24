@@ -1,4 +1,4 @@
 module.exports = {
     guilds: require('./models/guild'),
-    user: require('./models/user')
+    member: require('./models/member')
 }

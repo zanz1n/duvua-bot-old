@@ -20,12 +20,10 @@ module.exports = class extends Event {
         interaction.guild.db = await this.client.db.guilds.findById(interaction.guild.id) ||
             new this.client.db.guilds({ _id: interaction.guild.id, name: interaction.guild.name });
 
-        interaction.user.db = await this.client.db.user.findById(interaction.guild.id) ||
-            new this.client.db.user({ _id: interaction.guild.id, userid: interaction.user.id, usertag: interaction.user.tag });
+        interaction.user.db = await this.client.db.user.findById(interaction.guild.id + interaction.user.id) ||
+            new this.client.db.user({ _id: interaction.guild.id + interaction.user.id, guildid: interaction.guild.id, userid: interaction.user.id, usertag: interaction.user.tag });
 
         interaction.user.db.save()
-
-        interaction.guild.db.name = interaction.guild.name
         interaction.guild.db.save()
 
         if (interaction.isCommand) {
