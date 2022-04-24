@@ -41,7 +41,7 @@ module.exports = {
 
         const collector = await message.channel.createMessageComponentCollector({ filter, time: 60000 })
 
-        await msg.edit({ embeds: [embed], components: [row] })
+        await msg.edit({ content: null, embeds: [embed], components: [row] })
 
         collector.on("collect", async (i) => {
             const values = i.values[0]
