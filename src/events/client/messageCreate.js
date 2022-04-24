@@ -1,3 +1,5 @@
+const Bot = require('../../structures/Client')
+const { Message, MessageEmbed } = require('discord.js')
 const Event = require('../../structures/Event')
 
 module.exports = class extends Event {
@@ -6,12 +8,23 @@ module.exports = class extends Event {
             name: "messageCreate"
         })
     }
+    /**
+     * 
+     * @param {Message} message 
+     * @param {Bot} this.client
+     * 
+     */
     run = async (message) => {
         if (message.author.bot) return
         if (!message.guild) return
 
+
+
         message.guild.db = await this.client.db.guilds.findById(message.guild.id) ||
             new this.client.db.guilds({ _id: message.guild.id, name: message.guild.name });
+
+        message.author.db = await this.client.db.user.findById(message.guild.id) ||
+            new this.client.db.user({ _id: message.guild.id, userid: message.author.id, usertag: message.author.tag });
 
         const prefix = message.guild.db.prefix
 
@@ -25,30 +38,31 @@ module.exports = class extends Event {
             const cmd = this.client.commands.find(el => el.name === msgcommand.toLowerCase())
             if (!cmd) return
 
-            cmd.execute(this.client, message, args).catch((err) => {
+            return cmd.execute(this.client, message, args).catch((err) => {
                 if (err) console.log("\x1b[31m[bot-err] something whent wrong trying to execute a slashCommand\x1b[0m\n",
                     err,
                     "\n\x1b[33m[bot-api] this may affect the usability of the bot\x1b[0m"
                 )
             })
         }
+
+        message.author.db.xp++
+        if (message.author.db.usertag !== message.author.tag) message.author.db.usertag = message.author.tag
+
+        if (message.guild.db.name !== message.guild.name) message.guild.db.name = message.guild.name
+
+        if (message.author.db.xp === message.author.db.level * 10) {
+            const embed = new MessageEmbed()
+            if (message.author.db.level === 1) {
+                embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.author.db.level + 1}**\nPara avançar de nível você pode interagir mais nesse servidor.`)
+            } else embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.author.db.level + 1}**`)
+            message.author.db.xp = 0
+            message.author.db.level++
+
+            message.channel.send({ embeds: [embed] })
+        }
+
+        message.author.db.save()
+        message.guild.db.save()
     }
 }
-/*
- *const user = await this.client.database.user.findOne({ _id: message.author.id })
-        const guild = await this.client.database.guild.findOne({ _id: message.guild.id })
-        const Client = await this.client.database.user.findOne({ _id: this.client.user.id })
-
-        if (!user) await this.client.database.user.create({ _id: message.author.id, name: message.author.tag })
-        if (!guild) await this.client.database.guild.create({ _id: message.guild.id, name: message.guild.name })
-        if (!Client) await this.client.database.client.create({ _id: this.client.user.id })
-
-        if (user.name !== message.author.tag) await this.client.database.user.findOneAndUpdate({ _id: message.author.id }, { $set: { name: message.author.tag } })
-        if (guild.name !== message.guild.name) await this.client.database.guild.findOneAndUpdate({ _id: message.guild.id }, { $set: { name: message.guild.name } })
- *
- * 
- * 
- * 
- * 
- * 
- */
