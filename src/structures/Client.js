@@ -72,7 +72,7 @@ module.exports = class Bot extends Client {
     }
     registrySlashCommands() {
         this.guilds.cache.get(config.tests_guild_id).commands.set(this.slashCommands) //for Dev
-        // this.application.commands.set(this.commands) //for Production environment
+        // this.application.commands.set(this.slashCommands) //for Production environment
     }
     loadPlayer() {
         this.player = new Player(this, {
