@@ -15,4 +15,3 @@ module.exports = class extends Event {
         console.log(`\x1b[33m[bot-api] logged to discord-api as ${this.client.user.tag} in ${this.client.guilds.cache.size} guild(s)\x1b[0m`)
     }
 }
-
