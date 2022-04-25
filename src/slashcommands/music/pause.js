@@ -1,5 +1,5 @@
 const slashCommand = require('../../structures/slashCommands')
-const { MessageEmbed } = require('discord.js')
+const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js')
 const { Permissions } = require('discord.js')
 
 module.exports = class extends slashCommand {
@@ -25,7 +25,9 @@ module.exports = class extends slashCommand {
 
         queue.setPaused(true)
 
+        const resume = new MessageButton().setCustomId('resume').setLabel('▶️ Resume').setStyle('SUCCESS')
+        const button = new MessageActionRow().addComponents(resume)
         embed.setDescription(`**Bot pausado por ${interaction.user.username}**\nUse /resume para continuar a reprodução`)
-        await interaction.editReply({ content: null, embeds: [embed] })
+        await interaction.editReply({ content: null, embeds: [embed], components: [button] })
     }
 }

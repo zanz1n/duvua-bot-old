@@ -1,5 +1,5 @@
 const Bot = require('../../structures/Client')
-const { Interaction, MessageEmbed, Permissions } = require('discord.js')
+const { MessageActionRow, MessageButton, Interaction, MessageEmbed, Permissions } = require('discord.js')
 const Event = require('../../structures/Event')
 
 module.exports = class extends Event {
@@ -30,6 +30,9 @@ module.exports = class extends Event {
             const queue = this.client.player.getQueue(interaction.guildId)
             const embed = new MessageEmbed()
 
+            const pause = new MessageButton().setCustomId('pause').setLabel('⏸️ Pause').setStyle('PRIMARY')
+            const resume = new MessageButton().setCustomId('resume').setLabel('▶️ Resume').setStyle('SUCCESS')
+
             if (interaction.customId === "skip") {
                 if (!queue) {
                     embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`)
@@ -40,7 +43,8 @@ module.exports = class extends Event {
                 embed.setDescription(`**Música** ${queue.current.title} **pulada por ${interaction.user.username}**`)
                 await interaction.reply({ content: null, embeds: [embed] })
 
-            } else if (interaction.customId === "stop") {
+            }
+            else if (interaction.customId === "stop") {
                 if (!interaction.member.permissions.has(Permissions.FLAGS.MOVE_MEMBERS)) {
                     embed.setDescription(`**Você não tem permissão para usar esse comando,  ${interaction.user.username}**`)
                     return await interaction.reply({ content: null, embeds: [embed], ephemeral: true })
@@ -54,6 +58,39 @@ module.exports = class extends Event {
 
                 embed.setDescription(`**A fila foi limpa por ${interaction.user.username}**`)
                 await interaction.reply({ content: null, embeds: [embed] })
+            }
+            else if (interaction.customId === "pause") {
+                if (!interaction.member.permissions.has(Permissions.FLAGS.MOVE_MEMBERS)) {
+                    embed.setDescription(`**Você não tem permissão para usar esse comando,  ${interaction.user.username}**`)
+                    return await interaction.reply({ content: null, embeds: [embed], ephemeral: true })
+                }
+                if (!queue) {
+                    embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`)
+                    return await interaction.reply({ content: null, embeds: [embed], ephemeral: true })
+                }
+
+                queue.setPaused(true)
+
+                const button = new MessageActionRow().addComponents(resume)
+                embed.setDescription(`**Bot pausado por ${interaction.user.username}**\nUse /resume para continuar a reprodução`)
+                await interaction.reply({ content: null, embeds: [embed], components: [button] })
+            }
+            else if (interaction.customId === "resume") {
+
+                if (!interaction.member.permissions.has(Permissions.FLAGS.MOVE_MEMBERS)) {
+                    embed.setDescription(`**Você não tem permissão para usar esse comando,  ${interaction.user.username}**`)
+                    return await interaction.reply({ content: null, embeds: [embed], ephemeral: true })
+                }
+                if (!queue) {
+                    embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`)
+                    return await interaction.reply({ content: null, embeds: [embed], ephemeral: true })
+                }
+
+                queue.setPaused(false)
+
+                const button = new MessageActionRow().addComponents(pause)
+                embed.setDescription(`**Bot despausado por ${interaction.user.username}**\nUse /pause para pausá-lo`)
+                await interaction.reply({ content: null, embeds: [embed], components: [button] })
             }
         }
 
