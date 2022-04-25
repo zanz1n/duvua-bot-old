@@ -44,8 +44,8 @@ module.exports = class extends slashCommand {
                 .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
 
             const button = new MessageActionRow().addComponents(
-                new MessageButton().setCustomId('1').setLabel('Retribuir 🔁').setStyle('PRIMARY').setDisabled(false),
-                new MessageButton().setCustomId('2').setLabel('Recusar ❌').setStyle('PRIMARY').setDisabled(false)
+                new MessageButton().setCustomId('1').setLabel('🔁 Retribuir').setStyle('PRIMARY').setDisabled(false),
+                new MessageButton().setCustomId('2').setLabel('❌ Recusar').setStyle('PRIMARY').setDisabled(false)
             )
             await interaction.editReply({ embeds: [embed], components: [button] })
 
