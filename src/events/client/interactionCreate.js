@@ -20,13 +20,20 @@ module.exports = class extends Event {
         interaction.guild.db = await this.client.db.guilds.findById(interaction.guild.id) ||
             new this.client.db.guilds({ _id: interaction.guild.id, name: interaction.guild.name });
 
-        interaction.user.db = await this.client.db.member.findById(interaction.guild.id + interaction.user.id) ||
+        interaction.member.db = await this.client.db.member.findById(interaction.guild.id + interaction.user.id) ||
             new this.client.db.member({ _id: interaction.guild.id + interaction.user.id, guildid: interaction.guild.id, userid: interaction.user.id, usertag: interaction.user.tag });
 
+        interaction.user.db = await this.client.db.user.findById(interaction.user.id) ||
+            new this.client.db.user({ _id: interaction.user.id, usertag: interaction.user.tag });
+
         interaction.user.db.save()
+        interaction.member.db.save()
         interaction.guild.db.save()
 
         if (interaction.isButton()) {
+            const ver = (name) => interaction.customId === name
+            if (!(ver("skip") || ver("stop") || ver("pause") || ver("resume"))) return
+
             const queue = this.client.player.getQueue(interaction.guildId)
             const embed = new MessageEmbed()
 

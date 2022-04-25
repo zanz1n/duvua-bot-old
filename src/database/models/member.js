@@ -6,6 +6,7 @@ let memberSchema = new Schema({
     guildid: { type: String },
     userid: { type: String },
     usertag: { type: String },
+    silver_coins: { type: Number, default: 0 },
     xp: { type: Number, default: 0 },
     level: { type: Number, default: 1 },
 })

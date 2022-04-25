@@ -17,9 +17,9 @@ module.exports = class extends slashCommand {
      * 
      */
     async run(interaction) {
-        const meta = 3 * (interaction.user.db.level ** 2)
-        const embed = new MessageEmbed().setDescription(`**Seu level atual no servidor ${interaction.guild.name} é ${interaction.user.db.level}**
-        Seu progresso para atingir o level ${interaction.user.db.level + 1} é ${interaction.user.db.xp}/${meta} pontos!`
+        const meta = 3 * (interaction.member.db.level ** 2)
+        const embed = new MessageEmbed().setDescription(`**Seu level atual no servidor ${interaction.guild.name} é ${interaction.member.db.level}**
+        Seu progresso para atingir o level ${interaction.member.db.level + 1} é ${interaction.member.db.xp}/${meta} pontos!`
         )
 
         interaction.editReply({ content: null, embeds: [embed] })

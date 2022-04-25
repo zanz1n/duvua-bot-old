@@ -23,8 +23,11 @@ module.exports = class extends Event {
         message.guild.db = await this.client.db.guilds.findById(message.guild.id) ||
             new this.client.db.guilds({ _id: message.guild.id, name: message.guild.name });
 
-        message.author.db = await this.client.db.member.findById(message.guild.id + message.author.id) ||
+        message.member.db = await this.client.db.member.findById(message.guild.id + message.author.id) ||
             new this.client.db.member({ _id: message.guild.id + message.author.id, guildid: message.guild.id, userid: message.author.id, usertag: message.author.tag });
+
+        message.author.db = await this.client.db.user.findById(message.author.id) ||
+            new this.client.db.user({ _id: message.author.id, usertag: message.author.tag });
 
         const prefix = message.guild.db.prefix
 
@@ -46,24 +49,27 @@ module.exports = class extends Event {
             })
         }
 
-        message.author.db.xp++
+        message.member.db.xp++
+        if (message.member.db.usertag !== message.author.tag) message.member.db.usertag = message.author.tag
+
         if (message.author.db.usertag !== message.author.tag) message.author.db.usertag = message.author.tag
 
         if (message.guild.db.name !== message.guild.name) message.guild.db.name = message.guild.name
-        const meta = 3 * (message.author.db.level ** 2)
+        const meta = 3 * (message.member.db.level ** 2)
 
-        if (message.author.db.xp === meta) {
+        if (message.member.db.xp === meta) {
             const embed = new MessageEmbed()
-            if (message.author.db.level === 1) {
-                embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.author.db.level + 1}**\nPara avançar de nível você pode interagir mais nesse servidor.`)
-            } else embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.author.db.level + 1}**`)
-            message.author.db.xp = 0
-            message.author.db.level++
+            if (message.member.db.level === 1) {
+                embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.member.db.level + 1}**\nPara avançar de nível você pode interagir mais nesse servidor.`)
+            } else embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.member.db.level + 1}**`)
+            message.member.db.xp = 0
+            message.member.db.level++
 
             message.channel.send({ embeds: [embed] })
         }
 
         message.author.db.save()
+        message.member.db.save()
         message.guild.db.save()
     }
 }
