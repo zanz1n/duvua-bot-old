@@ -13,7 +13,7 @@ module.exports = class extends slashCommand {
     async run(interaction) {
         const queue = this.client.player.getQueue(interaction.guildId)
 
-        let embed = new MessageEmbed()
+        const embed = new MessageEmbed()
         if (!interaction.member.permissions.has(Permissions.FLAGS.MOVE_MEMBERS)) {
             embed.setDescription(`**Você não tem permissão para usar esse comando,  ${interaction.user.username}**`)
             return await interaction.editReply({ content: null, embeds: [embed] })
