@@ -68,7 +68,7 @@ module.exports = class extends slashCommand {
                 const infoEmbed = new MessageEmbed().addField("Info", "Comandos de inforomação em geral.")
                     .addField("\:globe_with_meridians:\:m: ping", find("ping"), true).addField("\:globe_with_meridians: info", find("info"), true)
                     .addField("\:globe_with_meridians:\:m: help", find("help"), true).addField("\:globe_with_meridians:\:m: anime", find("anime"), true)
-                    .addField("\:globe_with_meridians:\:m: level", find("level"), true).addField("*", "*", true)
+                    .addField("\:globe_with_meridians:\:m: level", find("level"), true).addField("\:globe_with_meridians:\:m: coins", find("coins"), true)
 
                 i.deferUpdate()
                 interaction.editReply({ content: null, embeds: [infoEmbed] })
