@@ -1,5 +1,5 @@
 const Bot = require('../../structures/Client')
-const { Interaction } = require('discord.js')
+const { Interaction, MessageEmbed, Permissions } = require('discord.js')
 const Event = require('../../structures/Event')
 
 module.exports = class extends Event {
@@ -25,6 +25,37 @@ module.exports = class extends Event {
 
         interaction.user.db.save()
         interaction.guild.db.save()
+
+        if (interaction.isButton()) {
+            const queue = this.client.player.getQueue(interaction.guildId)
+            const embed = new MessageEmbed()
+
+            if (interaction.customId === "skip") {
+                if (!queue) {
+                    embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`)
+                    return await interaction.reply({ content: null, embeds: [embed], ephemeral: true })
+                }
+                queue.skip()
+
+                embed.setDescription(`**Música** ${queue.current.title} **pulada por ${interaction.user.username}**`)
+                await interaction.reply({ content: null, embeds: [embed] })
+
+            } else if (interaction.customId === "stop") {
+                if (!interaction.member.permissions.has(Permissions.FLAGS.MOVE_MEMBERS)) {
+                    embed.setDescription(`**Você não tem permissão para usar esse comando,  ${interaction.user.username}**`)
+                    return await interaction.reply({ content: null, embeds: [embed], ephemeral: true })
+                }
+                if (!queue) {
+                    embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`)
+                    return await interaction.reply({ content: null, embeds: [embed], ephemeral: true })
+                }
+
+                queue.destroy()
+
+                embed.setDescription(`**A fila foi limpa por ${interaction.user.username}**`)
+                await interaction.reply({ content: null, embeds: [embed] })
+            }
+        }
 
         if (interaction.isCommand) {
             const cmd = await this.client.slashCommands.find(c => c.name === interaction.commandName)

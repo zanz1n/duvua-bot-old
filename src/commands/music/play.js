@@ -1,6 +1,5 @@
-const { MessageEmbed } = require('discord.js')
 const { QueryType } = require('discord-player')
-const { Permissions } = require('discord.js')
+const { MessageEmbed, MessageActionRow, MessageButton, Permissions } = require('discord.js')
 
 module.exports = {
     name: "play",
@@ -48,6 +47,13 @@ module.exports = {
 
         if (!queue.playing) await queue.play()
 
-        await msg.edit({ content: " ", embeds: [embed] })
+        const skip = new MessageButton().setCustomId('skip').setLabel('⏭️ Skip').setStyle('PRIMARY')
+        const stop = new MessageButton().setCustomId('stop').setLabel('⏹️ Stop').setStyle('DANGER')
+        const pause = new MessageButton().setCustomId('pause').setLabel('⏸️ Pause').setStyle('PRIMARY')
+        const resume = new MessageButton().setCustomId('resume').setLabel('▶️ Resume').setStyle('SUCCESS')
+
+        const button = new MessageActionRow().addComponents(skip, stop, pause, resume)
+
+        await msg.edit({ content: null, embeds: [embed], components: [button] })
     }
 }

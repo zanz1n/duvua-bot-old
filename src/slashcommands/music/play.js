@@ -1,5 +1,5 @@
 const slashCommand = require('../../structures/slashCommands')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, MessageActionRow, MessageButton, Permissions } = require('discord.js')
 const { QueryType } = require('discord-player')
 
 module.exports = class extends slashCommand {
@@ -29,7 +29,7 @@ module.exports = class extends slashCommand {
         if (!queue.connection) await queue.connect(interaction.member.voice.channel)
 
         if (interaction.options.getString("som").length > 80) {
-            embed.setDescription(`**Não pesquiso por títulos com mais de 80 caracteres, ${interaction.user.username}**`)
+            embed.setDescription(`**Não pesquiso nada com mais de 80 caracteres, ${interaction.user.username}**`)
             return interaction.editReply({ content: null, embeds: [embed] })
         }
 
@@ -60,6 +60,13 @@ module.exports = class extends slashCommand {
 
         if (!queue.playing) await queue.play()
 
-        await interaction.editReply({ embeds: [embed] })
+        const skip = new MessageButton().setCustomId('skip').setLabel('⏭️ Skip').setStyle('PRIMARY')
+        const stop = new MessageButton().setCustomId('stop').setLabel('⏹️ Stop').setStyle('DANGER')
+        const pause = new MessageButton().setCustomId('pause').setLabel('⏸️ Pause').setStyle('PRIMARY')
+        const resume = new MessageButton().setCustomId('resume').setLabel('▶️ Resume').setStyle('SUCCESS')
+
+        const button = new MessageActionRow().addComponents(skip, stop, pause, resume)
+
+        await interaction.editReply({ content: null, embeds: [embed], components: [button] })
     }
 }
