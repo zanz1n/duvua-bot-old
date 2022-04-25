@@ -13,7 +13,7 @@ module.exports = class extends slashCommand {
     async run(interaction) {
         const queue = this.client.player.getQueue(interaction.guildId)
 
-        let embed = new MessageEmbed()
+        const embed = new MessageEmbed()
 
         if (!queue) {
             embed.setDescription(`**Não há nenhum som na fila,  ${interaction.user.username}**`)
