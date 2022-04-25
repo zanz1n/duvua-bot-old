@@ -1,5 +1,5 @@
 const slashCommand = require('../../structures/slashCommands')
-const { MessageEmbed } = require('discord.js')
+const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js')
 const { Permissions } = require('discord.js')
 
 module.exports = class extends slashCommand {
@@ -26,9 +26,15 @@ module.exports = class extends slashCommand {
         })
 
         const song = queue.current
+        const skip = new MessageButton().setCustomId('skip').setLabel('⏭️ Skip').setStyle('PRIMARY')
+        const stop = new MessageButton().setCustomId('stop').setLabel('⏹️ Stop').setStyle('DANGER')
+        const pause = new MessageButton().setCustomId('pause').setLabel('⏸️ Pause').setStyle('PRIMARY')
+        const resume = new MessageButton().setCustomId('resume').setLabel('▶️ Resume').setStyle('SUCCESS')
+
+        const button = new MessageActionRow().addComponents(skip, stop, pause, resume)
 
         embed.setThumbnail(song.thumbnail).setDescription(`**${interaction.user.username}**\n\nTocando agora: [${song.title}](${song.url})\n\n**Duração: [${song.duration}]**\n\n ${bar}`)
 
-        await interaction.editReply({ content: null, embeds: [embed] })
+        await interaction.editReply({ content: null, embeds: [embed], components: [button] })
     }
 }
