@@ -29,10 +29,10 @@ module.exports = class extends slashCommand {
             embed.setDescription(`**Vamos manter nossa relação como uma amizade, ok ${interaction.user}?**`)
             return interaction.editReply({ embeds: [embed] })
         }
-        /*else if (user.bot) {
+        else if (user.bot) {
             embed.setDescription(`**Você não pode beijar um bot ${interaction.user}!**`)
             return interaction.editReply({ embeds: [embed] })
-        }*/ //do not permit kissing bots
+        } //do not permit kissing bots
 
         else if (user === interaction.user) {
             embed.setTitle(`O amor está no ar!  \:heart:`).setDescription(`${interaction.user} beijou ${user}`)
