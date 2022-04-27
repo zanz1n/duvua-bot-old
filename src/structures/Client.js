@@ -71,8 +71,13 @@ module.exports = class Bot extends Client {
         console.log("\x1b[32m[mongoose-db] connected to the database \x1b[0m")
     }
     registrySlashCommands() {
-        this.guilds.cache.get(config.tests_guild_id).commands.set(this.slashCommands) //for Dev
-        // this.application.commands.set(this.slashCommands) //for Production environment
+        if (config.inDevelopment) {
+            console.log("\x1b[33m[bot-api] Client in dev environment\x1b[0m")
+            this.guilds.cache.get(config.tests_guild_id).commands.set(this.slashCommands)
+        } else {
+            console.log("\x1b[33m[bot-api] Client in producion environment\x1b[0m")
+            this.application.commands.set(this.slashCommands)
+        }
     }
     loadPlayer() {
         this.player = new Player(this, {
