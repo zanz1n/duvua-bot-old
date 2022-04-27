@@ -7,7 +7,7 @@ module.exports = {
     async execute(client, message, args) {
         let embed = new MessageEmbed()
 
-        const msg = await message.channel.send({ content: `\`Carregando [${message.content.replace(client.prefix + "play", "")} ]\`` })
+        const msg = await message.channel.send({ content: `\`Carregando [${args} ]\`` })
         if (!message.member.voice.channel) {
             embed.setDescription(`**Você prefisa estart em um canal de voz para tocar uma música, ${message.author.username}**`)
             return msg.edit({ content: null, embeds: [embed] })
@@ -15,12 +15,12 @@ module.exports = {
         const queue = await client.player.createQueue(message.guild)
         if (!queue.connection) await queue.connect(message.member.voice.channel)
 
-        if (args.length > 80) { //args
+        if (args.length > 80) {
             embed.setDescription(`**Não pesquiso por títulos com mais de 80 caracteres, ${message.author.username}**`)
             return msg.edit({ content: null, embeds: [embed] })
         }
 
-        let url = args //args[0]
+        let url = args
         var result = await client.player.search(url, {
             requestedBy: message.author,
             searchEngine: QueryType.YOUTUBE_VIDEO
