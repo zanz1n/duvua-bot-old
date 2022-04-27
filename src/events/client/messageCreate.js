@@ -55,16 +55,22 @@ module.exports = class extends Event {
         if (message.author.db.usertag !== message.author.tag) message.author.db.usertag = message.author.tag
 
         if (message.guild.db.name !== message.guild.name) message.guild.db.name = message.guild.name
-        const meta = 3 * (message.member.db.level ** 2)
 
-        if (message.member.db.xp === meta) {
+        let meta = 3 * (message.member.db.level ** 2)
+
+        if (message.member.db.xp >= meta) {
             const embed = new MessageEmbed()
-            if (message.member.db.level === 1) {
-                embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.member.db.level + 1}**\nPara avançar de nível você pode interagir mais nesse servidor.`)
-            } else embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.member.db.level + 1}**`)
-            message.member.db.xp = 0
-            message.member.db.level++
+            while (message.member.db.xp >= meta) {
+                meta = 3 * (message.member.db.level ** 2)
+                message.member.db.level++
+                message.member.db.xp -= meta
+            }
 
+            if (message.member.db.level === 2) {
+                embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.member.db.level}**
+                Para conquistar mais níveis, coninue interagindo nesse serivdor.`
+                )
+            } else embed.setDescription(`**Parabéns ${message.author}, você avançou para o level ${message.member.db.level}**`)
             message.channel.send({ embeds: [embed] })
         }
 
