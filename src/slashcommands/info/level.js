@@ -1,7 +1,7 @@
 const slashCommand = require('../../structures/slashCommands')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, MessageAttachment, Interaction } = require('discord.js')
 const Bot = require('../../structures/Client')
-const { Interaction } = require('discord.js')
+const Canvacord = require('canvacord')
 
 module.exports = class extends slashCommand {
     constructor(client) {
@@ -20,17 +20,21 @@ module.exports = class extends slashCommand {
     }
     /**
      * 
-     * @param {Interaction} interaction 
+     * @param {Interaction} interaction
      * @param {Bot} this.client
      * 
      */
     async run(interaction) {
-        const embed = new MessageEmbed()
         const options = interaction.options._hoistedOptions
         const user = (options.find((e) => e.name === "pessoa") && options.find((e) => e.name === "pessoa").member.user) || interaction.user
+        const member = (options.find((e) => e.name === "pessoa") && options.find((e) => e.name === "pessoa").member) || interaction.member
 
+        const embed = new MessageEmbed()
         if (user.bot) {
-            embed.setDescription(`**${user} é um bot, ${interaction.user.username}**`)
+            if (user.id === this.client.user.id) {
+                embed.setDescription(`**Meu level é uma incógnita, ou talvez ele só não exista \:thinking:**`)
+
+            } else embed.setDescription(`**${user} é um bot, ${interaction.user.username}**`)
             return interaction.editReply({ content: null, embeds: [embed] })
         }
 
@@ -40,16 +44,20 @@ module.exports = class extends slashCommand {
         mensioned.save()
 
         const meta = 3 * (mensioned.level ** 2)
-        if (user.id === interaction.user.id) {
-            embed.setDescription(`**Seu level atual no servidor ${interaction.guild.name} é ${mensioned.level}**
-            Para que você atinja o level ${mensioned.level + 1} serão necessários mais ${meta - mensioned.xp} pontos! (${mensioned.xp}/${meta})`
-            )
-        } else {
-            embed.setDescription(`**O level atual de ${user.username} em ${interaction.guild.name} é ${mensioned.level}**
-            Para que ${user.username} atinja o level ${mensioned.level + 1} serão necessários mais ${meta - mensioned.xp} pontos! (${mensioned.xp}/${meta})`
-            )
-        }
 
-        interaction.editReply({ content: null, embeds: [embed] })
+        const rank = new Canvacord.Rank()
+            .setAvatar(user.displayAvatarURL({ dynamic: false, format: 'png' }))
+            .setLevel(mensioned.level)
+            .setCurrentXP(mensioned.xp)
+            .setBackground("COLOR", "#464e4e")
+            .setRank(0)
+            .setRequiredXP(meta)
+            .setStatus("dnd")
+            .setProgressBar(member.displayHexColor, "COLOR")
+            .setUsername(user.username)
+            .setDiscriminator(user.discriminator)
+        rank.build().then(data => {
+            interaction.editReply({ content: null, files: [data] })
+        })
     }
 }
