@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js')
+const Canvacord = require('canvacord')
 
 module.exports = {
     name: "level",
@@ -7,6 +8,7 @@ module.exports = {
         const embed = new MessageEmbed()
 
         const user = await message.mentions.users.first() || message.author
+        const member = await message.mentions.members.first() || message.member
         if (user.bot) {
             embed.setDescription(`**${user} é um bot, ${message.author.username}**`)
             return message.reply({ content: null, embeds: [embed] })
@@ -18,16 +20,20 @@ module.exports = {
         mensioned.save()
 
         const meta = 3 * (mensioned.level ** 2)
-        if (user.id === message.author.id) {
-            embed.setDescription(`**Seu level atual no servidor ${message.guild.name} é ${mensioned.level}**
-            Para que você atinja o level ${mensioned.level + 1} serão necessários mais ${meta - mensioned.xp} pontos! (${mensioned.xp}/${meta})`
-            )
-        } else {
-            embed.setDescription(`**O level atual de ${user.username} em ${message.guild.name} é ${mensioned.level}**
-            Para que ${user.username} atinja o level ${mensioned.level + 1} serão necessários mais ${meta - mensioned.xp} pontos! (${mensioned.xp}/${meta})`
-            )
-        }
 
-        message.reply({ content: null, embeds: [embed] })
+        const rank = new Canvacord.Rank()
+            .setAvatar(user.displayAvatarURL({ dynamic: false, format: 'png' }))
+            .setLevel(mensioned.level)
+            .setCurrentXP(mensioned.xp)
+            .setBackground("COLOR", "#464e4e")
+            .setRank(0)
+            .setRequiredXP(meta)
+            .setStatus("dnd")
+            .setProgressBar(member.displayHexColor, "COLOR")
+            .setUsername(user.username)
+            .setDiscriminator(user.discriminator)
+        rank.build().then(data => {
+            message.reply({ content: null, files: [data] })
+        })
     }
 }
