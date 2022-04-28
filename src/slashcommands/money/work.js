@@ -34,7 +34,6 @@ module.exports = class extends slashCommand {
                 formatData = `\`${seconds}s\``
             }
 
-            console.log(Date.now())
             embed.setDescription(`**Você precisa esperar mais ${formatData} para trabalhar de novo.**`)
             return await interaction.editReply({ content: null, embeds: [embed] })
         }
