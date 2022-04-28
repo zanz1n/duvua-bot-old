@@ -35,19 +35,22 @@ module.exports = class extends slashCommand {
             }
 
             embed.setDescription(`**Você precisa esperar mais ${formatData} para trabalhar de novo.**`)
+
             return await interaction.editReply({ content: null, embeds: [embed] })
         }
         interaction.user.db.last_daily_request = new Date()
 
-        console.log(sinceRequestMS)
         const random = (min, max) => Math.floor(Math.random() * (max - min) + min)
+
         const gold_coins = random(1, 5)
         const silver_coins = random(10, 50)
+
         embed.setDescription(`\:moneybag:  **Você trabalhou como ${interaction.user.db.job} e ganhou ${gold_coins} \:coin:  moedas de ouro e ${silver_coins} \:hole:  moedas de prata**
         Você agora possui ${interaction.user.db.gold_coins + gold_coins} \:coin:  moedas de ouro e ${interaction.member.db.silver_coins + silver_coins} \:hole:  moedas de prata`)
 
         interaction.user.db.gold_coins += gold_coins
         interaction.member.db.silver_coins += silver_coins
+
         interaction.user.db.save()
         interaction.member.db.save()
 
