@@ -7,7 +7,7 @@ module.exports = class extends slashCommand {
     constructor(client) {
         super(client, {
             name: "level",
-            description: "Mostra o level de interação no servidor de algum membro",
+            description: "Mostra o level de algum membro do servidor",
             options: [
                 {
                     name: "pessoa",
