@@ -10,7 +10,7 @@ module.exports = class extends slashCommand {
             options: [
                 {
                     name: "content",
-                    description: "O que você quer que eu fale",
+                    description: "O que você quer que eu fale ~/n para quebrar linha~",
                     type: 3,
                     required: true
                 }
@@ -27,8 +27,16 @@ module.exports = class extends slashCommand {
             embed.setDescription("**Você precisa inserir algo na embed**")
             return await interaction.editReply({ embeds: [embed] })
         }
-        embed.setTitle(interaction.options.getString('content'))
-            .setFooter({ text: `Requisitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
+        String.prototype.allReplace = function (obj) {
+            var retStr = this
+            for (var x in obj) {
+                retStr = retStr.replace(new RegExp(x, 'g'), obj[x])
+            }
+            return retStr
+        }
+
+        embed.setDescription(interaction.options.getString('content').allReplace({ '/n': '\n' }))
+            .setFooter({ text: `Mensagem de ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() }).setTimestamp()
         await interaction.editReply({ embeds: [embed] })
     }
 }

@@ -10,7 +10,7 @@ module.exports = class extends slashCommand {
             options: [
                 {
                     name: "content",
-                    description: "O que você quer que eu fale",
+                    description: "O que você quer que eu fale ~/n para quebrar linha~",
                     type: 3,
                     required: true
                 }
@@ -23,6 +23,15 @@ module.exports = class extends slashCommand {
             embed.setDescription(`**Você não tem permissão para usar esse comando,  ${interaction.user.username}**`)
             return await interaction.editReply({ embeds: [embed] })
         }
-        await interaction.editReply({ content: `${interaction.options.getString('content')}\n-${interaction.user}` })
+        String.prototype.allReplace = function (obj) {
+            var retStr = this;
+            for (var x in obj) {
+                retStr = retStr.replace(new RegExp(x, 'g'), obj[x]);
+            }
+            return retStr;
+        }
+
+        const content = interaction.options.getString('content').allReplace({ '/n': '\n' })
+        await interaction.editReply({ content: `${content}\n-${interaction.user}` })
     }
 }

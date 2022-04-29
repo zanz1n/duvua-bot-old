@@ -14,7 +14,15 @@ module.exports = {
             embed.setDescription(`**Você precisa inserir algo na embed, ${message.author.username}**`)
             return await message.reply({ embeds: [embed] })
         }
-        embed.setTitle(args).setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: message.author.displayAvatarURL() }).setTimestamp()
+        String.prototype.allReplace = function (obj) {
+            var retStr = this
+            for (var x in obj) {
+                retStr = retStr.replace(new RegExp(x, 'g'), obj[x])
+            }
+            return retStr
+        }
+
+        embed.setDescription(args.allReplace({ '/n': '\n' })).setFooter({ text: `Requisitado por ${message.author.username}`, iconURL: message.author.displayAvatarURL() }).setTimestamp()
         await message.channel.send({ embeds: [embed] })
     }
 }

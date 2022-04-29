@@ -14,6 +14,14 @@ module.exports = {
             embed.setDescription(`**Você precisa inserir uma mensagem, ${message.author.username}**`)
             return await message.reply({ embeds: [embed] })
         }
-        await message.channel.send(`${args}\n-${message.author}`)
+        String.prototype.allReplace = function (obj) {
+            var retStr = this
+            for (var x in obj) {
+                retStr = retStr.replace(new RegExp(x, 'g'), obj[x])
+            }
+            return retStr
+        }
+
+        await message.channel.send(`${args.allReplace({ '/n': '\n' })}\n-${message.author}`)
     }
 }
