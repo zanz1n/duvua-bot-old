@@ -36,7 +36,6 @@ module.exports = class extends slashCommand {
         }).then((res) => {
             return res.json()
         }).then((user) => {
-            console.log(user)
             if (!user.login) {
                 embed.setDescription(`**Usuário não encontrado**`)
             }
@@ -60,7 +59,6 @@ module.exports = class extends slashCommand {
             interaction.editReply({ content: null, embeds: [embed] })
         }).catch((err) => {
             if (err) {
-                console.log(err)
                 embed.setDescription(`**Usuário não encontrado**`)
                 interaction.editReply({ content: null, embeds: [embed] })
             }
